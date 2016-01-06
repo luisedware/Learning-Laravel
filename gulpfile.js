@@ -11,6 +11,14 @@ gulp.task("copyfiles", function () {
     gulp.src("vendor/bower_dl/AdminLTE/dist/js/app.min.js")
         .pipe(gulp.dest("resources/assets/js/"));
 
+    gulp.src("vendor/bower_dl/AdminLTE/plugins/slimScroll/jquery.slimscroll.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+
+    gulp.src("vendor/bower_dl/AdminLTE/plugins/pace/pace.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+    gulp.src('vendor/bower_dl/AdminLTE/plugins/pace/pace.css')
+        .pipe(gulp.dest("resources/assets/css/"));
+
     gulp.src("vendor/bower_dl/font-awesome/less/**")
         .pipe(gulp.dest("resources/assets/less/fontawesome"));
     gulp.src("vendor/bower_dl/font-awesome/fonts/**")
@@ -34,7 +42,9 @@ elixir(function (mix) {
         [
             'js/jquery.min.js',
             'js/bootstrap.min.js',
-            'js/app.min.js'
+            'js/app.min.js',
+            'js/jquery.slimscroll.js',
+            'js/pace.js'
         ],
         'public/assets/js/admin.js',
         'resources/assets/'
@@ -47,7 +57,13 @@ elixir(function (mix) {
 
     //合并css
     mix.styles(
-        ['adminlte.css', 'bootstrap.css','fontawesome.css','skin-green.min.css'],
+        [
+            'adminlte.css',
+            'bootstrap.css',
+            'fontawesome.css',
+            'skin-green.min.css',
+            'pace.css'
+        ],
         'public/assets/css/admin.css',
         'resources/assets/css/'
     );

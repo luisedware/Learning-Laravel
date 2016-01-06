@@ -23,4 +23,1431 @@ d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active"
  * @license MIT <http://opensource.org/licenses/MIT>
  */
 function _init(){"use strict";$.AdminLTE.layout={activate:function(){var a=this;a.fix(),a.fixSidebar(),$(window,".wrapper").resize(function(){a.fix(),a.fixSidebar()})},fix:function(){var a=$(".main-header").outerHeight()+$(".main-footer").outerHeight(),b=$(window).height(),c=$(".sidebar").height();if($("body").hasClass("fixed"))$(".content-wrapper, .right-side").css("min-height",b-$(".main-footer").outerHeight());else{var d;b>=c?($(".content-wrapper, .right-side").css("min-height",b-a),d=b-a):($(".content-wrapper, .right-side").css("min-height",c),d=c);var e=$($.AdminLTE.options.controlSidebarOptions.selector);"undefined"!=typeof e&&e.height()>d&&$(".content-wrapper, .right-side").css("min-height",e.height())}},fixSidebar:function(){return $("body").hasClass("fixed")?("undefined"==typeof $.fn.slimScroll&&window.console&&window.console.error("Error: the fixed layout requires the slimscroll plugin!"),void($.AdminLTE.options.sidebarSlimScroll&&"undefined"!=typeof $.fn.slimScroll&&($(".sidebar").slimScroll({destroy:!0}).height("auto"),$(".sidebar").slimscroll({height:$(window).height()-$(".main-header").height()+"px",color:"rgba(0,0,0,0.2)",size:"3px"})))):void("undefined"!=typeof $.fn.slimScroll&&$(".sidebar").slimScroll({destroy:!0}).height("auto"))}},$.AdminLTE.pushMenu={activate:function(a){var b=$.AdminLTE.options.screenSizes;$(document).on("click",a,function(a){a.preventDefault(),$(window).width()>b.sm-1?$("body").hasClass("sidebar-collapse")?$("body").removeClass("sidebar-collapse").trigger("expanded.pushMenu"):$("body").addClass("sidebar-collapse").trigger("collapsed.pushMenu"):$("body").hasClass("sidebar-open")?$("body").removeClass("sidebar-open").removeClass("sidebar-collapse").trigger("collapsed.pushMenu"):$("body").addClass("sidebar-open").trigger("expanded.pushMenu")}),$(".content-wrapper").click(function(){$(window).width()<=b.sm-1&&$("body").hasClass("sidebar-open")&&$("body").removeClass("sidebar-open")}),($.AdminLTE.options.sidebarExpandOnHover||$("body").hasClass("fixed")&&$("body").hasClass("sidebar-mini"))&&this.expandOnHover()},expandOnHover:function(){var a=this,b=$.AdminLTE.options.screenSizes.sm-1;$(".main-sidebar").hover(function(){$("body").hasClass("sidebar-mini")&&$("body").hasClass("sidebar-collapse")&&$(window).width()>b&&a.expand()},function(){$("body").hasClass("sidebar-mini")&&$("body").hasClass("sidebar-expanded-on-hover")&&$(window).width()>b&&a.collapse()})},expand:function(){$("body").removeClass("sidebar-collapse").addClass("sidebar-expanded-on-hover")},collapse:function(){$("body").hasClass("sidebar-expanded-on-hover")&&$("body").removeClass("sidebar-expanded-on-hover").addClass("sidebar-collapse")}},$.AdminLTE.tree=function(a){var b=this,c=$.AdminLTE.options.animationSpeed;$(a).on("click","li a",function(a){var d=$(this),e=d.next();if(e.is(".treeview-menu")&&e.is(":visible")&&!$("body").hasClass("sidebar-collapse"))e.slideUp(c,function(){e.removeClass("menu-open")}),e.parent("li").removeClass("active");else if(e.is(".treeview-menu")&&!e.is(":visible")){var f=d.parents("ul").first(),g=f.find("ul:visible").slideUp(c);g.removeClass("menu-open");var h=d.parent("li");e.slideDown(c,function(){e.addClass("menu-open"),f.find("li.active").removeClass("active"),h.addClass("active"),b.layout.fix()})}e.is(".treeview-menu")&&a.preventDefault()})},$.AdminLTE.controlSidebar={activate:function(){var a=this,b=$.AdminLTE.options.controlSidebarOptions,c=$(b.selector),d=$(b.toggleBtnSelector);d.on("click",function(d){d.preventDefault(),c.hasClass("control-sidebar-open")||$("body").hasClass("control-sidebar-open")?a.close(c,b.slide):a.open(c,b.slide)});var e=$(".control-sidebar-bg");a._fix(e),$("body").hasClass("fixed")?a._fixForFixed(c):$(".content-wrapper, .right-side").height()<c.height()&&a._fixForContent(c)},open:function(a,b){b?a.addClass("control-sidebar-open"):$("body").addClass("control-sidebar-open")},close:function(a,b){b?a.removeClass("control-sidebar-open"):$("body").removeClass("control-sidebar-open")},_fix:function(a){var b=this;$("body").hasClass("layout-boxed")?(a.css("position","absolute"),a.height($(".wrapper").height()),$(window).resize(function(){b._fix(a)})):a.css({position:"fixed",height:"auto"})},_fixForFixed:function(a){a.css({position:"fixed","max-height":"100%",overflow:"auto","padding-bottom":"50px"})},_fixForContent:function(a){$(".content-wrapper, .right-side").css("min-height",a.height())}},$.AdminLTE.boxWidget={selectors:$.AdminLTE.options.boxWidgetOptions.boxWidgetSelectors,icons:$.AdminLTE.options.boxWidgetOptions.boxWidgetIcons,animationSpeed:$.AdminLTE.options.animationSpeed,activate:function(a){var b=this;a||(a=document),$(a).on("click",b.selectors.collapse,function(a){a.preventDefault(),b.collapse($(this))}),$(a).on("click",b.selectors.remove,function(a){a.preventDefault(),b.remove($(this))})},collapse:function(a){var b=this,c=a.parents(".box").first(),d=c.find("> .box-body, > .box-footer, > form  >.box-body, > form > .box-footer");c.hasClass("collapsed-box")?(a.children(":first").removeClass(b.icons.open).addClass(b.icons.collapse),d.slideDown(b.animationSpeed,function(){c.removeClass("collapsed-box")})):(a.children(":first").removeClass(b.icons.collapse).addClass(b.icons.open),d.slideUp(b.animationSpeed,function(){c.addClass("collapsed-box")}))},remove:function(a){var b=a.parents(".box").first();b.slideUp(this.animationSpeed)}}}if("undefined"==typeof jQuery)throw new Error("AdminLTE requires jQuery");$.AdminLTE={},$.AdminLTE.options={navbarMenuSlimscroll:!0,navbarMenuSlimscrollWidth:"3px",navbarMenuHeight:"200px",animationSpeed:500,sidebarToggleSelector:"[data-toggle='offcanvas']",sidebarPushMenu:!0,sidebarSlimScroll:!0,sidebarExpandOnHover:!1,enableBoxRefresh:!0,enableBSToppltip:!0,BSTooltipSelector:"[data-toggle='tooltip']",enableFastclick:!0,enableControlSidebar:!0,controlSidebarOptions:{toggleBtnSelector:"[data-toggle='control-sidebar']",selector:".control-sidebar",slide:!0},enableBoxWidget:!0,boxWidgetOptions:{boxWidgetIcons:{collapse:"fa-minus",open:"fa-plus",remove:"fa-times"},boxWidgetSelectors:{remove:'[data-widget="remove"]',collapse:'[data-widget="collapse"]'}},directChat:{enable:!0,contactToggleSelector:'[data-widget="chat-pane-toggle"]'},colors:{lightBlue:"#3c8dbc",red:"#f56954",green:"#00a65a",aqua:"#00c0ef",yellow:"#f39c12",blue:"#0073b7",navy:"#001F3F",teal:"#39CCCC",olive:"#3D9970",lime:"#01FF70",orange:"#FF851B",fuchsia:"#F012BE",purple:"#8E24AA",maroon:"#D81B60",black:"#222222",gray:"#d2d6de"},screenSizes:{xs:480,sm:768,md:992,lg:1200}},$(function(){"use strict";$("body").removeClass("hold-transition"),"undefined"!=typeof AdminLTEOptions&&$.extend(!0,$.AdminLTE.options,AdminLTEOptions);var a=$.AdminLTE.options;_init(),$.AdminLTE.layout.activate(),$.AdminLTE.tree(".sidebar"),a.enableControlSidebar&&$.AdminLTE.controlSidebar.activate(),a.navbarMenuSlimscroll&&"undefined"!=typeof $.fn.slimscroll&&$(".navbar .menu").slimscroll({height:a.navbarMenuHeight,alwaysVisible:!1,size:a.navbarMenuSlimscrollWidth}).css("width","100%"),a.sidebarPushMenu&&$.AdminLTE.pushMenu.activate(a.sidebarToggleSelector),a.enableBSToppltip&&$("body").tooltip({selector:a.BSTooltipSelector}),a.enableBoxWidget&&$.AdminLTE.boxWidget.activate(),a.enableFastclick&&"undefined"!=typeof FastClick&&FastClick.attach(document.body),a.directChat.enable&&$(document).on("click",a.directChat.contactToggleSelector,function(){var a=$(this).parents(".direct-chat").first();a.toggleClass("direct-chat-contacts-open")}),$('.btn-group[data-toggle="btn-toggle"]').each(function(){var a=$(this);$(this).find(".btn").on("click",function(b){a.find(".btn.active").removeClass("active"),$(this).addClass("active"),b.preventDefault()})})}),function(a){"use strict";a.fn.boxRefresh=function(b){function c(a){a.append(f),e.onLoadStart.call(a)}function d(a){a.find(f).remove(),e.onLoadDone.call(a)}var e=a.extend({trigger:".refresh-btn",source:"",onLoadStart:function(a){return a},onLoadDone:function(a){return a}},b),f=a('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');return this.each(function(){if(""===e.source)return void(window.console&&window.console.log("Please specify a source first - boxRefresh()"));var b=a(this),f=b.find(e.trigger).first();f.on("click",function(a){a.preventDefault(),c(b),b.find(".box-body").load(e.source,function(){d(b)})})})}}(jQuery),function(a){"use strict";a.fn.activateBox=function(){a.AdminLTE.boxWidget.activate(this)},a.fn.toggleBox=function(){var b=a(a.AdminLTE.boxWidget.selectors.collapse,this);a.AdminLTE.boxWidget.collapse(b)},a.fn.removeBox=function(){var b=a(a.AdminLTE.boxWidget.selectors.remove,this);a.AdminLTE.boxWidget.remove(b)}}(jQuery),function(a){"use strict";a.fn.todolist=function(b){var c=a.extend({onCheck:function(a){return a},onUncheck:function(a){return a}},b);return this.each(function(){"undefined"!=typeof a.fn.iCheck?(a("input",this).on("ifChecked",function(){var b=a(this).parents("li").first();b.toggleClass("done"),c.onCheck.call(b)}),a("input",this).on("ifUnchecked",function(){var b=a(this).parents("li").first();b.toggleClass("done"),c.onUncheck.call(b)})):a("input",this).on("change",function(){var b=a(this).parents("li").first();b.toggleClass("done"),a("input",b).is(":checked")?c.onCheck.call(b):c.onUncheck.call(b)})})}}(jQuery);
+/*! Copyright (c) 2011 Piotr Rochala (http://rocha.la)
+ * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+ * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ *
+ * Version: 1.3.3
+ *
+ */
+(function ($) {
+
+  $.fn.extend({
+    slimScroll: function (options) {
+
+      var defaults = {
+        // width in pixels of the visible scroll area
+        width: 'auto',
+        // height in pixels of the visible scroll area
+        height: '250px',
+        // width in pixels of the scrollbar and rail
+        size: '7px',
+        // scrollbar color, accepts any hex/color value
+        color: '#000',
+        // scrollbar position - left/right
+        position: 'right',
+        // distance in pixels between the side edge and the scrollbar
+        distance: '1px',
+        // default scroll position on load - top / bottom / $('selector')
+        start: 'top',
+        // sets scrollbar opacity
+        opacity: .4,
+        // enables always-on mode for the scrollbar
+        alwaysVisible: false,
+        // check if we should hide the scrollbar when user is hovering over
+        disableFadeOut: false,
+        // sets visibility of the rail
+        railVisible: false,
+        // sets rail color
+        railColor: '#333',
+        // sets rail opacity
+        railOpacity: .2,
+        // whether  we should use jQuery UI Draggable to enable bar dragging
+        railDraggable: true,
+        // defautlt CSS class of the slimscroll rail
+        railClass: 'slimScrollRail',
+        // defautlt CSS class of the slimscroll bar
+        barClass: 'slimScrollBar',
+        // defautlt CSS class of the slimscroll wrapper
+        wrapperClass: 'slimScrollDiv',
+        // check if mousewheel should scroll the window if we reach top/bottom
+        allowPageScroll: false,
+        // scroll amount applied to each mouse wheel step
+        wheelStep: 20,
+        // scroll amount applied when user is using gestures
+        touchScrollStep: 200,
+        // sets border radius
+        borderRadius: '7px',
+        // sets border radius of the rail
+        railBorderRadius: '7px'
+      };
+
+      var o = $.extend(defaults, options);
+
+      // do it for every element that matches selector
+      this.each(function () {
+
+        var isOverPanel, isOverBar, isDragg, queueHide, touchDif,
+                barHeight, percentScroll, lastScroll,
+                divS = '<div></div>',
+                minBarHeight = 30,
+                releaseScroll = false;
+
+        // used in event handlers and for better minification
+        var me = $(this);
+
+        // ensure we are not binding it again
+        if (me.parent().hasClass(o.wrapperClass))
+        {
+          // start from last bar position
+          var offset = me.scrollTop();
+
+          // find bar and rail
+          bar = me.parent().find('.' + o.barClass);
+          rail = me.parent().find('.' + o.railClass);
+
+          getBarHeight();
+
+          // check if we should scroll existing instance
+          if ($.isPlainObject(options))
+          {
+            // Pass height: auto to an existing slimscroll object to force a resize after contents have changed
+            if ('height' in options && options.height == 'auto') {
+              me.parent().css('height', 'auto');
+              me.css('height', 'auto');
+              var height = me.parent().parent().height();
+              me.parent().css('height', height);
+              me.css('height', height);
+            }
+
+            if ('scrollTo' in options)
+            {
+              // jump to a static point
+              offset = parseInt(o.scrollTo);
+            }
+            else if ('scrollBy' in options)
+            {
+              // jump by value pixels
+              offset += parseInt(o.scrollBy);
+            }
+            else if ('destroy' in options)
+            {
+              // remove slimscroll elements
+              bar.remove();
+              rail.remove();
+              me.unwrap();
+              return;
+            }
+
+            // scroll content by the given offset
+            scrollContent(offset, false, true);
+          }
+
+          return;
+        }
+        else if ($.isPlainObject(options))
+        {
+          if ('destroy' in options)
+          {
+            return;
+          }
+        }
+
+        // optionally set height to the parent's height
+        o.height = (o.height == 'auto') ? me.parent().height() : o.height;
+
+        // wrap content
+        var wrapper = $(divS)
+                .addClass(o.wrapperClass)
+                .css({
+                  position: 'relative',
+                  overflow: 'hidden',
+                  width: o.width,
+                  height: o.height
+                });
+
+        // update style for the div
+        me.css({
+          overflow: 'hidden',
+          width: o.width,
+          height: o.height,
+          //Fix for IE10
+          "-ms-touch-action": "none"
+        });
+
+        // create scrollbar rail
+        var rail = $(divS)
+                .addClass(o.railClass)
+                .css({
+                  width: o.size,
+                  height: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  display: (o.alwaysVisible && o.railVisible) ? 'block' : 'none',
+                  'border-radius': o.railBorderRadius,
+                  background: o.railColor,
+                  opacity: o.railOpacity,
+                  zIndex: 90
+                });
+
+        // create scrollbar
+        var bar = $(divS)
+                .addClass(o.barClass)
+                .css({
+                  background: o.color,
+                  width: o.size,
+                  position: 'absolute',
+                  top: 0,
+                  opacity: o.opacity,
+                  display: o.alwaysVisible ? 'block' : 'none',
+                  'border-radius': o.borderRadius,
+                  BorderRadius: o.borderRadius,
+                  MozBorderRadius: o.borderRadius,
+                  WebkitBorderRadius: o.borderRadius,
+                  zIndex: 99
+                });
+
+        // set position
+        var posCss = (o.position == 'right') ? {right: o.distance} : {left: o.distance};
+        rail.css(posCss);
+        bar.css(posCss);
+
+        // wrap it
+        me.wrap(wrapper);
+
+        // append to parent div
+        me.parent().append(bar);
+        me.parent().append(rail);
+
+        // make it draggable and no longer dependent on the jqueryUI
+        if (o.railDraggable) {
+          bar.bind("mousedown", function (e) {
+            var $doc = $(document);
+            isDragg = true;
+            t = parseFloat(bar.css('top'));
+            pageY = e.pageY;
+
+            $doc.bind("mousemove.slimscroll", function (e) {
+              currTop = t + e.pageY - pageY;
+              bar.css('top', currTop);
+              scrollContent(0, bar.position().top, false);// scroll content
+            });
+
+            $doc.bind("mouseup.slimscroll", function (e) {
+              isDragg = false;
+              hideBar();
+              $doc.unbind('.slimscroll');
+            });
+            return false;
+          }).bind("selectstart.slimscroll", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+          });
+        }
+
+        // on rail over
+        rail.hover(function () {
+          showBar();
+        }, function () {
+          hideBar();
+        });
+
+        // on bar over
+        bar.hover(function () {
+          isOverBar = true;
+        }, function () {
+          isOverBar = false;
+        });
+
+        // show on parent mouseover
+        me.hover(function () {
+          isOverPanel = true;
+          showBar();
+          hideBar();
+        }, function () {
+          isOverPanel = false;
+          hideBar();
+        });
+
+        if (window.navigator.msPointerEnabled) {          
+          // support for mobile
+          me.bind('MSPointerDown', function (e, b) {
+            if (e.originalEvent.targetTouches.length)
+            {
+              // record where touch started
+              touchDif = e.originalEvent.targetTouches[0].pageY;
+            }
+          });
+
+          me.bind('MSPointerMove', function (e) {
+            // prevent scrolling the page if necessary
+            e.originalEvent.preventDefault();
+            if (e.originalEvent.targetTouches.length)
+            {
+              // see how far user swiped
+              var diff = (touchDif - e.originalEvent.targetTouches[0].pageY) / o.touchScrollStep;
+              // scroll content
+              scrollContent(diff, true);
+              touchDif = e.originalEvent.targetTouches[0].pageY;
+              
+            }
+          });
+        } else {
+          // support for mobile
+          me.bind('touchstart', function (e, b) {
+            if (e.originalEvent.touches.length)
+            {
+              // record where touch started
+              touchDif = e.originalEvent.touches[0].pageY;
+            }
+          });
+
+          me.bind('touchmove', function (e) {
+            // prevent scrolling the page if necessary
+            if (!releaseScroll)
+            {
+              e.originalEvent.preventDefault();
+            }
+            if (e.originalEvent.touches.length)
+            {
+              // see how far user swiped
+              var diff = (touchDif - e.originalEvent.touches[0].pageY) / o.touchScrollStep;
+              // scroll content
+              scrollContent(diff, true);
+              touchDif = e.originalEvent.touches[0].pageY;
+            }
+          });
+        }
+
+        // set up initial height
+        getBarHeight();
+
+        // check start position
+        if (o.start === 'bottom')
+        {
+          // scroll content to bottom
+          bar.css({top: me.outerHeight() - bar.outerHeight()});
+          scrollContent(0, true);
+        }
+        else if (o.start !== 'top')
+        {
+          // assume jQuery selector
+          scrollContent($(o.start).position().top, null, true);
+
+          // make sure bar stays hidden
+          if (!o.alwaysVisible) {
+            bar.hide();
+          }
+        }
+
+        // attach scroll events
+        attachWheel();
+
+        function _onWheel(e)
+        {
+          // use mouse wheel only when mouse is over
+          if (!isOverPanel) {
+            return;
+          }
+
+          var e = e || window.event;
+
+          var delta = 0;
+          if (e.wheelDelta) {
+            delta = -e.wheelDelta / 120;
+          }
+          if (e.detail) {
+            delta = e.detail / 3;
+          }
+
+          var target = e.target || e.srcTarget || e.srcElement;
+          if ($(target).closest('.' + o.wrapperClass).is(me.parent())) {
+            // scroll content
+            scrollContent(delta, true);
+          }
+
+          // stop window scroll
+          if (e.preventDefault && !releaseScroll) {
+            e.preventDefault();
+          }
+          if (!releaseScroll) {
+            e.returnValue = false;
+          }
+        }
+
+        function scrollContent(y, isWheel, isJump)
+        {
+          releaseScroll = false;
+          var delta = y;
+          var maxTop = me.outerHeight() - bar.outerHeight();
+
+          if (isWheel)
+          {
+            // move bar with mouse wheel
+            delta = parseInt(bar.css('top')) + y * parseInt(o.wheelStep) / 100 * bar.outerHeight();
+
+            // move bar, make sure it doesn't go out
+            delta = Math.min(Math.max(delta, 0), maxTop);
+
+            // if scrolling down, make sure a fractional change to the
+            // scroll position isn't rounded away when the scrollbar's CSS is set
+            // this flooring of delta would happened automatically when
+            // bar.css is set below, but we floor here for clarity
+            delta = (y > 0) ? Math.ceil(delta) : Math.floor(delta);
+
+            // scroll the scrollbar
+            bar.css({top: delta + 'px'});
+          }
+
+          // calculate actual scroll amount
+          percentScroll = parseInt(bar.css('top')) / (me.outerHeight() - bar.outerHeight());
+          delta = percentScroll * (me[0].scrollHeight - me.outerHeight());
+
+          if (isJump)
+          {
+            delta = y;
+            var offsetTop = delta / me[0].scrollHeight * me.outerHeight();
+            offsetTop = Math.min(Math.max(offsetTop, 0), maxTop);
+            bar.css({top: offsetTop + 'px'});
+          }
+
+          // scroll content
+          me.scrollTop(delta);
+
+          // fire scrolling event
+          me.trigger('slimscrolling', ~~delta);
+
+          // ensure bar is visible
+          showBar();
+
+          // trigger hide when scroll is stopped
+          hideBar();
+        }
+
+        function attachWheel()
+        {
+          if (window.addEventListener)
+          {
+            this.addEventListener('DOMMouseScroll', _onWheel, false);
+            this.addEventListener('mousewheel', _onWheel, false);
+          }
+          else
+          {
+            document.attachEvent("onmousewheel", _onWheel)
+          }
+        }
+
+        function getBarHeight()
+        {
+          // calculate scrollbar height and make sure it is not too small
+          barHeight = Math.max((me.outerHeight() / me[0].scrollHeight) * me.outerHeight(), minBarHeight);
+          bar.css({height: barHeight + 'px'});
+
+          // hide scrollbar if content is not long enough
+          var display = barHeight == me.outerHeight() ? 'none' : 'block';
+          bar.css({display: display});
+        }
+
+        function showBar()
+        {
+          // recalculate bar height
+          getBarHeight();
+          clearTimeout(queueHide);
+
+          // when bar reached top or bottom
+          if (percentScroll == ~~percentScroll)
+          {
+            //release wheel
+            releaseScroll = o.allowPageScroll;
+
+            // publish approporiate event
+            if (lastScroll != percentScroll)
+            {
+              var msg = (~~percentScroll == 0) ? 'top' : 'bottom';
+              me.trigger('slimscroll', msg);
+            }
+          }
+          else
+          {
+            releaseScroll = false;
+          }
+          lastScroll = percentScroll;
+
+          // show only when required
+          if (barHeight >= me.outerHeight()) {
+            //allow window scroll
+            releaseScroll = true;
+            return;
+          }
+          bar.stop(true, true).fadeIn('fast');
+          if (o.railVisible) {
+            rail.stop(true, true).fadeIn('fast');
+          }
+        }
+
+        function hideBar()
+        {
+          // only hide when options allow it
+          if (!o.alwaysVisible)
+          {
+            queueHide = setTimeout(function () {
+              if (!(o.disableFadeOut && isOverPanel) && !isOverBar && !isDragg)
+              {
+                bar.fadeOut('slow');
+                rail.fadeOut('slow');
+              }
+            }, 1000);
+          }
+        }
+
+      });
+
+      // maintain chainability
+      return this;
+    }
+  });
+
+  $.fn.extend({
+    slimscroll: $.fn.slimScroll
+  });
+
+})(jQuery);
+
+(function() {
+  var AjaxMonitor, Bar, DocumentMonitor, ElementMonitor, ElementTracker, EventLagMonitor, Evented, Events, NoTargetError, Pace, RequestIntercept, SOURCE_KEYS, Scaler, SocketRequestTracker, XHRRequestTracker, animation, avgAmplitude, bar, cancelAnimation, cancelAnimationFrame, defaultOptions, extend, extendNative, getFromDOM, getIntercept, handlePushState, ignoreStack, init, now, options, requestAnimationFrame, result, runAnimation, scalers, shouldIgnoreURL, shouldTrack, source, sources, uniScaler, _WebSocket, _XDomainRequest, _XMLHttpRequest, _i, _intercept, _len, _pushState, _ref, _ref1, _replaceState,
+    __slice = [].slice,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  defaultOptions = {
+    catchupTime: 100,
+    initialRate: .03,
+    minTime: 250,
+    ghostTime: 100,
+    maxProgressPerFrame: 20,
+    easeFactor: 1.25,
+    startOnPageLoad: true,
+    restartOnPushState: true,
+    restartOnRequestAfter: 500,
+    target: 'body',
+    elements: {
+      checkInterval: 100,
+      selectors: ['body']
+    },
+    eventLag: {
+      minSamples: 10,
+      sampleCount: 3,
+      lagThreshold: 3
+    },
+    ajax: {
+      trackMethods: ['GET'],
+      trackWebSockets: true,
+      ignoreURLs: []
+    }
+  };
+
+  now = function() {
+    var _ref;
+    return (_ref = typeof performance !== "undefined" && performance !== null ? typeof performance.now === "function" ? performance.now() : void 0 : void 0) != null ? _ref : +(new Date);
+  };
+
+  requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+  cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+  if (requestAnimationFrame == null) {
+    requestAnimationFrame = function(fn) {
+      return setTimeout(fn, 50);
+    };
+    cancelAnimationFrame = function(id) {
+      return clearTimeout(id);
+    };
+  }
+
+  runAnimation = function(fn) {
+    var last, tick;
+    last = now();
+    tick = function() {
+      var diff;
+      diff = now() - last;
+      if (diff >= 33) {
+        last = now();
+        return fn(diff, function() {
+          return requestAnimationFrame(tick);
+        });
+      } else {
+        return setTimeout(tick, 33 - diff);
+      }
+    };
+    return tick();
+  };
+
+  result = function() {
+    var args, key, obj;
+    obj = arguments[0], key = arguments[1], args = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+    if (typeof obj[key] === 'function') {
+      return obj[key].apply(obj, args);
+    } else {
+      return obj[key];
+    }
+  };
+
+  extend = function() {
+    var key, out, source, sources, val, _i, _len;
+    out = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    for (_i = 0, _len = sources.length; _i < _len; _i++) {
+      source = sources[_i];
+      if (source) {
+        for (key in source) {
+          if (!__hasProp.call(source, key)) continue;
+          val = source[key];
+          if ((out[key] != null) && typeof out[key] === 'object' && (val != null) && typeof val === 'object') {
+            extend(out[key], val);
+          } else {
+            out[key] = val;
+          }
+        }
+      }
+    }
+    return out;
+  };
+
+  avgAmplitude = function(arr) {
+    var count, sum, v, _i, _len;
+    sum = count = 0;
+    for (_i = 0, _len = arr.length; _i < _len; _i++) {
+      v = arr[_i];
+      sum += Math.abs(v);
+      count++;
+    }
+    return sum / count;
+  };
+
+  getFromDOM = function(key, json) {
+    var data, e, el;
+    if (key == null) {
+      key = 'options';
+    }
+    if (json == null) {
+      json = true;
+    }
+    el = document.querySelector("[data-pace-" + key + "]");
+    if (!el) {
+      return;
+    }
+    data = el.getAttribute("data-pace-" + key);
+    if (!json) {
+      return data;
+    }
+    try {
+      return JSON.parse(data);
+    } catch (_error) {
+      e = _error;
+      return typeof console !== "undefined" && console !== null ? console.error("Error parsing inline pace options", e) : void 0;
+    }
+  };
+
+  Evented = (function() {
+    function Evented() {}
+
+    Evented.prototype.on = function(event, handler, ctx, once) {
+      var _base;
+      if (once == null) {
+        once = false;
+      }
+      if (this.bindings == null) {
+        this.bindings = {};
+      }
+      if ((_base = this.bindings)[event] == null) {
+        _base[event] = [];
+      }
+      return this.bindings[event].push({
+        handler: handler,
+        ctx: ctx,
+        once: once
+      });
+    };
+
+    Evented.prototype.once = function(event, handler, ctx) {
+      return this.on(event, handler, ctx, true);
+    };
+
+    Evented.prototype.off = function(event, handler) {
+      var i, _ref, _results;
+      if (((_ref = this.bindings) != null ? _ref[event] : void 0) == null) {
+        return;
+      }
+      if (handler == null) {
+        return delete this.bindings[event];
+      } else {
+        i = 0;
+        _results = [];
+        while (i < this.bindings[event].length) {
+          if (this.bindings[event][i].handler === handler) {
+            _results.push(this.bindings[event].splice(i, 1));
+          } else {
+            _results.push(i++);
+          }
+        }
+        return _results;
+      }
+    };
+
+    Evented.prototype.trigger = function() {
+      var args, ctx, event, handler, i, once, _ref, _ref1, _results;
+      event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      if ((_ref = this.bindings) != null ? _ref[event] : void 0) {
+        i = 0;
+        _results = [];
+        while (i < this.bindings[event].length) {
+          _ref1 = this.bindings[event][i], handler = _ref1.handler, ctx = _ref1.ctx, once = _ref1.once;
+          handler.apply(ctx != null ? ctx : this, args);
+          if (once) {
+            _results.push(this.bindings[event].splice(i, 1));
+          } else {
+            _results.push(i++);
+          }
+        }
+        return _results;
+      }
+    };
+
+    return Evented;
+
+  })();
+
+  Pace = window.Pace || {};
+
+  window.Pace = Pace;
+
+  extend(Pace, Evented.prototype);
+
+  options = Pace.options = extend({}, defaultOptions, window.paceOptions, getFromDOM());
+
+  _ref = ['ajax', 'document', 'eventLag', 'elements'];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    source = _ref[_i];
+    if (options[source] === true) {
+      options[source] = defaultOptions[source];
+    }
+  }
+
+  NoTargetError = (function(_super) {
+    __extends(NoTargetError, _super);
+
+    function NoTargetError() {
+      _ref1 = NoTargetError.__super__.constructor.apply(this, arguments);
+      return _ref1;
+    }
+
+    return NoTargetError;
+
+  })(Error);
+
+  Bar = (function() {
+    function Bar() {
+      this.progress = 0;
+    }
+
+    Bar.prototype.getElement = function() {
+      var targetElement;
+      if (this.el == null) {
+        targetElement = document.querySelector(options.target);
+        if (!targetElement) {
+          throw new NoTargetError;
+        }
+        this.el = document.createElement('div');
+        this.el.className = "pace pace-active";
+        document.body.className = document.body.className.replace(/pace-done/g, '');
+        document.body.className += ' pace-running';
+        this.el.innerHTML = '<div class="pace-progress">\n  <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>';
+        if (targetElement.firstChild != null) {
+          targetElement.insertBefore(this.el, targetElement.firstChild);
+        } else {
+          targetElement.appendChild(this.el);
+        }
+      }
+      return this.el;
+    };
+
+    Bar.prototype.finish = function() {
+      var el;
+      el = this.getElement();
+      el.className = el.className.replace('pace-active', '');
+      el.className += ' pace-inactive';
+      document.body.className = document.body.className.replace('pace-running', '');
+      return document.body.className += ' pace-done';
+    };
+
+    Bar.prototype.update = function(prog) {
+      this.progress = prog;
+      return this.render();
+    };
+
+    Bar.prototype.destroy = function() {
+      try {
+        this.getElement().parentNode.removeChild(this.getElement());
+      } catch (_error) {
+        NoTargetError = _error;
+      }
+      return this.el = void 0;
+    };
+
+    Bar.prototype.render = function() {
+      var el, key, progressStr, transform, _j, _len1, _ref2;
+      if (document.querySelector(options.target) == null) {
+        return false;
+      }
+      el = this.getElement();
+      transform = "translate3d(" + this.progress + "%, 0, 0)";
+      _ref2 = ['webkitTransform', 'msTransform', 'transform'];
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        key = _ref2[_j];
+        el.children[0].style[key] = transform;
+      }
+      if (!this.lastRenderedProgress || this.lastRenderedProgress | 0 !== this.progress | 0) {
+        el.children[0].setAttribute('data-progress-text', "" + (this.progress | 0) + "%");
+        if (this.progress >= 100) {
+          progressStr = '99';
+        } else {
+          progressStr = this.progress < 10 ? "0" : "";
+          progressStr += this.progress | 0;
+        }
+        el.children[0].setAttribute('data-progress', "" + progressStr);
+      }
+      return this.lastRenderedProgress = this.progress;
+    };
+
+    Bar.prototype.done = function() {
+      return this.progress >= 100;
+    };
+
+    return Bar;
+
+  })();
+
+  Events = (function() {
+    function Events() {
+      this.bindings = {};
+    }
+
+    Events.prototype.trigger = function(name, val) {
+      var binding, _j, _len1, _ref2, _results;
+      if (this.bindings[name] != null) {
+        _ref2 = this.bindings[name];
+        _results = [];
+        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+          binding = _ref2[_j];
+          _results.push(binding.call(this, val));
+        }
+        return _results;
+      }
+    };
+
+    Events.prototype.on = function(name, fn) {
+      var _base;
+      if ((_base = this.bindings)[name] == null) {
+        _base[name] = [];
+      }
+      return this.bindings[name].push(fn);
+    };
+
+    return Events;
+
+  })();
+
+  _XMLHttpRequest = window.XMLHttpRequest;
+
+  _XDomainRequest = window.XDomainRequest;
+
+  _WebSocket = window.WebSocket;
+
+  extendNative = function(to, from) {
+    var e, key, _results;
+    _results = [];
+    for (key in from.prototype) {
+      try {
+        if ((to[key] == null) && typeof from[key] !== 'function') {
+          if (typeof Object.defineProperty === 'function') {
+            _results.push(Object.defineProperty(to, key, {
+              get: function() {
+                return from.prototype[key];
+              },
+              configurable: true,
+              enumerable: true
+            }));
+          } else {
+            _results.push(to[key] = from.prototype[key]);
+          }
+        } else {
+          _results.push(void 0);
+        }
+      } catch (_error) {
+        e = _error;
+      }
+    }
+    return _results;
+  };
+
+  ignoreStack = [];
+
+  Pace.ignore = function() {
+    var args, fn, ret;
+    fn = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    ignoreStack.unshift('ignore');
+    ret = fn.apply(null, args);
+    ignoreStack.shift();
+    return ret;
+  };
+
+  Pace.track = function() {
+    var args, fn, ret;
+    fn = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    ignoreStack.unshift('track');
+    ret = fn.apply(null, args);
+    ignoreStack.shift();
+    return ret;
+  };
+
+  shouldTrack = function(method) {
+    var _ref2;
+    if (method == null) {
+      method = 'GET';
+    }
+    if (ignoreStack[0] === 'track') {
+      return 'force';
+    }
+    if (!ignoreStack.length && options.ajax) {
+      if (method === 'socket' && options.ajax.trackWebSockets) {
+        return true;
+      } else if (_ref2 = method.toUpperCase(), __indexOf.call(options.ajax.trackMethods, _ref2) >= 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  RequestIntercept = (function(_super) {
+    __extends(RequestIntercept, _super);
+
+    function RequestIntercept() {
+      var monitorXHR,
+        _this = this;
+      RequestIntercept.__super__.constructor.apply(this, arguments);
+      monitorXHR = function(req) {
+        var _open;
+        _open = req.open;
+        return req.open = function(type, url, async) {
+          if (shouldTrack(type)) {
+            _this.trigger('request', {
+              type: type,
+              url: url,
+              request: req
+            });
+          }
+          return _open.apply(req, arguments);
+        };
+      };
+      window.XMLHttpRequest = function(flags) {
+        var req;
+        req = new _XMLHttpRequest(flags);
+        monitorXHR(req);
+        return req;
+      };
+      try {
+        extendNative(window.XMLHttpRequest, _XMLHttpRequest);
+      } catch (_error) {}
+      if (_XDomainRequest != null) {
+        window.XDomainRequest = function() {
+          var req;
+          req = new _XDomainRequest;
+          monitorXHR(req);
+          return req;
+        };
+        try {
+          extendNative(window.XDomainRequest, _XDomainRequest);
+        } catch (_error) {}
+      }
+      if ((_WebSocket != null) && options.ajax.trackWebSockets) {
+        window.WebSocket = function(url, protocols) {
+          var req;
+          if (protocols != null) {
+            req = new _WebSocket(url, protocols);
+          } else {
+            req = new _WebSocket(url);
+          }
+          if (shouldTrack('socket')) {
+            _this.trigger('request', {
+              type: 'socket',
+              url: url,
+              protocols: protocols,
+              request: req
+            });
+          }
+          return req;
+        };
+        try {
+          extendNative(window.WebSocket, _WebSocket);
+        } catch (_error) {}
+      }
+    }
+
+    return RequestIntercept;
+
+  })(Events);
+
+  _intercept = null;
+
+  getIntercept = function() {
+    if (_intercept == null) {
+      _intercept = new RequestIntercept;
+    }
+    return _intercept;
+  };
+
+  shouldIgnoreURL = function(url) {
+    var pattern, _j, _len1, _ref2;
+    _ref2 = options.ajax.ignoreURLs;
+    for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+      pattern = _ref2[_j];
+      if (typeof pattern === 'string') {
+        if (url.indexOf(pattern) !== -1) {
+          return true;
+        }
+      } else {
+        if (pattern.test(url)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  getIntercept().on('request', function(_arg) {
+    var after, args, request, type, url;
+    type = _arg.type, request = _arg.request, url = _arg.url;
+    if (shouldIgnoreURL(url)) {
+      return;
+    }
+    if (!Pace.running && (options.restartOnRequestAfter !== false || shouldTrack(type) === 'force')) {
+      args = arguments;
+      after = options.restartOnRequestAfter || 0;
+      if (typeof after === 'boolean') {
+        after = 0;
+      }
+      return setTimeout(function() {
+        var stillActive, _j, _len1, _ref2, _ref3, _results;
+        if (type === 'socket') {
+          stillActive = request.readyState < 2;
+        } else {
+          stillActive = (0 < (_ref2 = request.readyState) && _ref2 < 4);
+        }
+        if (stillActive) {
+          Pace.restart();
+          _ref3 = Pace.sources;
+          _results = [];
+          for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
+            source = _ref3[_j];
+            if (source instanceof AjaxMonitor) {
+              source.watch.apply(source, args);
+              break;
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        }
+      }, after);
+    }
+  });
+
+  AjaxMonitor = (function() {
+    function AjaxMonitor() {
+      var _this = this;
+      this.elements = [];
+      getIntercept().on('request', function() {
+        return _this.watch.apply(_this, arguments);
+      });
+    }
+
+    AjaxMonitor.prototype.watch = function(_arg) {
+      var request, tracker, type, url;
+      type = _arg.type, request = _arg.request, url = _arg.url;
+      if (shouldIgnoreURL(url)) {
+        return;
+      }
+      if (type === 'socket') {
+        tracker = new SocketRequestTracker(request);
+      } else {
+        tracker = new XHRRequestTracker(request);
+      }
+      return this.elements.push(tracker);
+    };
+
+    return AjaxMonitor;
+
+  })();
+
+  XHRRequestTracker = (function() {
+    function XHRRequestTracker(request) {
+      var event, size, _j, _len1, _onreadystatechange, _ref2,
+        _this = this;
+      this.progress = 0;
+      if (window.ProgressEvent != null) {
+        size = null;
+        request.addEventListener('progress', function(evt) {
+          if (evt.lengthComputable) {
+            return _this.progress = 100 * evt.loaded / evt.total;
+          } else {
+            return _this.progress = _this.progress + (100 - _this.progress) / 2;
+          }
+        }, false);
+        _ref2 = ['load', 'abort', 'timeout', 'error'];
+        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+          event = _ref2[_j];
+          request.addEventListener(event, function() {
+            return _this.progress = 100;
+          }, false);
+        }
+      } else {
+        _onreadystatechange = request.onreadystatechange;
+        request.onreadystatechange = function() {
+          var _ref3;
+          if ((_ref3 = request.readyState) === 0 || _ref3 === 4) {
+            _this.progress = 100;
+          } else if (request.readyState === 3) {
+            _this.progress = 50;
+          }
+          return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+        };
+      }
+    }
+
+    return XHRRequestTracker;
+
+  })();
+
+  SocketRequestTracker = (function() {
+    function SocketRequestTracker(request) {
+      var event, _j, _len1, _ref2,
+        _this = this;
+      this.progress = 0;
+      _ref2 = ['error', 'open'];
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        event = _ref2[_j];
+        request.addEventListener(event, function() {
+          return _this.progress = 100;
+        }, false);
+      }
+    }
+
+    return SocketRequestTracker;
+
+  })();
+
+  ElementMonitor = (function() {
+    function ElementMonitor(options) {
+      var selector, _j, _len1, _ref2;
+      if (options == null) {
+        options = {};
+      }
+      this.elements = [];
+      if (options.selectors == null) {
+        options.selectors = [];
+      }
+      _ref2 = options.selectors;
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        selector = _ref2[_j];
+        this.elements.push(new ElementTracker(selector));
+      }
+    }
+
+    return ElementMonitor;
+
+  })();
+
+  ElementTracker = (function() {
+    function ElementTracker(selector) {
+      this.selector = selector;
+      this.progress = 0;
+      this.check();
+    }
+
+    ElementTracker.prototype.check = function() {
+      var _this = this;
+      if (document.querySelector(this.selector)) {
+        return this.done();
+      } else {
+        return setTimeout((function() {
+          return _this.check();
+        }), options.elements.checkInterval);
+      }
+    };
+
+    ElementTracker.prototype.done = function() {
+      return this.progress = 100;
+    };
+
+    return ElementTracker;
+
+  })();
+
+  DocumentMonitor = (function() {
+    DocumentMonitor.prototype.states = {
+      loading: 0,
+      interactive: 50,
+      complete: 100
+    };
+
+    function DocumentMonitor() {
+      var _onreadystatechange, _ref2,
+        _this = this;
+      this.progress = (_ref2 = this.states[document.readyState]) != null ? _ref2 : 100;
+      _onreadystatechange = document.onreadystatechange;
+      document.onreadystatechange = function() {
+        if (_this.states[document.readyState] != null) {
+          _this.progress = _this.states[document.readyState];
+        }
+        return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+      };
+    }
+
+    return DocumentMonitor;
+
+  })();
+
+  EventLagMonitor = (function() {
+    function EventLagMonitor() {
+      var avg, interval, last, points, samples,
+        _this = this;
+      this.progress = 0;
+      avg = 0;
+      samples = [];
+      points = 0;
+      last = now();
+      interval = setInterval(function() {
+        var diff;
+        diff = now() - last - 50;
+        last = now();
+        samples.push(diff);
+        if (samples.length > options.eventLag.sampleCount) {
+          samples.shift();
+        }
+        avg = avgAmplitude(samples);
+        if (++points >= options.eventLag.minSamples && avg < options.eventLag.lagThreshold) {
+          _this.progress = 100;
+          return clearInterval(interval);
+        } else {
+          return _this.progress = 100 * (3 / (avg + 3));
+        }
+      }, 50);
+    }
+
+    return EventLagMonitor;
+
+  })();
+
+  Scaler = (function() {
+    function Scaler(source) {
+      this.source = source;
+      this.last = this.sinceLastUpdate = 0;
+      this.rate = options.initialRate;
+      this.catchup = 0;
+      this.progress = this.lastProgress = 0;
+      if (this.source != null) {
+        this.progress = result(this.source, 'progress');
+      }
+    }
+
+    Scaler.prototype.tick = function(frameTime, val) {
+      var scaling;
+      if (val == null) {
+        val = result(this.source, 'progress');
+      }
+      if (val >= 100) {
+        this.done = true;
+      }
+      if (val === this.last) {
+        this.sinceLastUpdate += frameTime;
+      } else {
+        if (this.sinceLastUpdate) {
+          this.rate = (val - this.last) / this.sinceLastUpdate;
+        }
+        this.catchup = (val - this.progress) / options.catchupTime;
+        this.sinceLastUpdate = 0;
+        this.last = val;
+      }
+      if (val > this.progress) {
+        this.progress += this.catchup * frameTime;
+      }
+      scaling = 1 - Math.pow(this.progress / 100, options.easeFactor);
+      this.progress += scaling * this.rate * frameTime;
+      this.progress = Math.min(this.lastProgress + options.maxProgressPerFrame, this.progress);
+      this.progress = Math.max(0, this.progress);
+      this.progress = Math.min(100, this.progress);
+      this.lastProgress = this.progress;
+      return this.progress;
+    };
+
+    return Scaler;
+
+  })();
+
+  sources = null;
+
+  scalers = null;
+
+  bar = null;
+
+  uniScaler = null;
+
+  animation = null;
+
+  cancelAnimation = null;
+
+  Pace.running = false;
+
+  handlePushState = function() {
+    if (options.restartOnPushState) {
+      return Pace.restart();
+    }
+  };
+
+  if (window.history.pushState != null) {
+    _pushState = window.history.pushState;
+    window.history.pushState = function() {
+      handlePushState();
+      return _pushState.apply(window.history, arguments);
+    };
+  }
+
+  if (window.history.replaceState != null) {
+    _replaceState = window.history.replaceState;
+    window.history.replaceState = function() {
+      handlePushState();
+      return _replaceState.apply(window.history, arguments);
+    };
+  }
+
+  SOURCE_KEYS = {
+    ajax: AjaxMonitor,
+    elements: ElementMonitor,
+    document: DocumentMonitor,
+    eventLag: EventLagMonitor
+  };
+
+  (init = function() {
+    var type, _j, _k, _len1, _len2, _ref2, _ref3, _ref4;
+    Pace.sources = sources = [];
+    _ref2 = ['ajax', 'elements', 'document', 'eventLag'];
+    for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+      type = _ref2[_j];
+      if (options[type] !== false) {
+        sources.push(new SOURCE_KEYS[type](options[type]));
+      }
+    }
+    _ref4 = (_ref3 = options.extraSources) != null ? _ref3 : [];
+    for (_k = 0, _len2 = _ref4.length; _k < _len2; _k++) {
+      source = _ref4[_k];
+      sources.push(new source(options));
+    }
+    Pace.bar = bar = new Bar;
+    scalers = [];
+    return uniScaler = new Scaler;
+  })();
+
+  Pace.stop = function() {
+    Pace.trigger('stop');
+    Pace.running = false;
+    bar.destroy();
+    cancelAnimation = true;
+    if (animation != null) {
+      if (typeof cancelAnimationFrame === "function") {
+        cancelAnimationFrame(animation);
+      }
+      animation = null;
+    }
+    return init();
+  };
+
+  Pace.restart = function() {
+    Pace.trigger('restart');
+    Pace.stop();
+    return Pace.start();
+  };
+
+  Pace.go = function() {
+    var start;
+    Pace.running = true;
+    bar.render();
+    start = now();
+    cancelAnimation = false;
+    return animation = runAnimation(function(frameTime, enqueueNextFrame) {
+      var avg, count, done, element, elements, i, j, remaining, scaler, scalerList, sum, _j, _k, _len1, _len2, _ref2;
+      remaining = 100 - bar.progress;
+      count = sum = 0;
+      done = true;
+      for (i = _j = 0, _len1 = sources.length; _j < _len1; i = ++_j) {
+        source = sources[i];
+        scalerList = scalers[i] != null ? scalers[i] : scalers[i] = [];
+        elements = (_ref2 = source.elements) != null ? _ref2 : [source];
+        for (j = _k = 0, _len2 = elements.length; _k < _len2; j = ++_k) {
+          element = elements[j];
+          scaler = scalerList[j] != null ? scalerList[j] : scalerList[j] = new Scaler(element);
+          done &= scaler.done;
+          if (scaler.done) {
+            continue;
+          }
+          count++;
+          sum += scaler.tick(frameTime);
+        }
+      }
+      avg = sum / count;
+      bar.update(uniScaler.tick(frameTime, avg));
+      if (bar.done() || done || cancelAnimation) {
+        bar.update(100);
+        Pace.trigger('done');
+        return setTimeout(function() {
+          bar.finish();
+          Pace.running = false;
+          return Pace.trigger('hide');
+        }, Math.max(options.ghostTime, Math.max(options.minTime - (now() - start), 0)));
+      } else {
+        return enqueueNextFrame();
+      }
+    });
+  };
+
+  Pace.start = function(_options) {
+    extend(options, _options);
+    Pace.running = true;
+    try {
+      bar.render();
+    } catch (_error) {
+      NoTargetError = _error;
+    }
+    if (!document.querySelector('.pace')) {
+      return setTimeout(Pace.start, 50);
+    } else {
+      Pace.trigger('start');
+      return Pace.go();
+    }
+  };
+
+  if (typeof define === 'function' && define.amd) {
+    define(['pace'], function() {
+      return Pace;
+    });
+  } else if (typeof exports === 'object') {
+    module.exports = Pace;
+  } else {
+    if (options.startOnPageLoad) {
+      Pace.start();
+    }
+  }
+
+}).call(this);
+
 //# sourceMappingURL=admin.js.map

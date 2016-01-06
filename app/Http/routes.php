@@ -15,4 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/index','Admin\IndexController@index');
+
+Route::group(['namespace'=>'Admin'],function(){
+    Route::resource('index','IndexController');
+});
