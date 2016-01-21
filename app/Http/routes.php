@@ -10,12 +10,18 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
+Route::get('/',function(){
     return view('welcome');
 });
 
+Route::group(['namespace' => 'Admin'], function () {
 
-Route::group(['namespace'=>'Admin'],function(){
-    Route::resource('index','IndexController');
+    Route::resource('user', 'UserController');
+    Route::resource('menu', 'MenuController');
+    Route::resource('index', 'IndexController');
+    Route::resource('order', 'OrderController');
+
+    Route::group(['namespace' => 'Product'], function () {
+        Route::resource('branch-product', 'BranchProductController');
+    });
 });
