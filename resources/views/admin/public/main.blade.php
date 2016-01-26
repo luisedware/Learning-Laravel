@@ -7,7 +7,7 @@
     <link href="{{ asset("/assets/css/admin.css") }}" rel="stylesheet" type="text/css"/>
     @yield('style')
 </head>
-<body class="hold-transition skin-green fixed sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
 
     <!-- Header -->
@@ -18,6 +18,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -37,6 +38,8 @@
         <!-- Main content -->
         <section class="content">
             <!-- Your Page Content Here -->
+            @include('admin.public.message.success')
+            @include('admin.public.message.error')
             @yield('content')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
@@ -52,6 +55,19 @@
 <script src="{{ asset ("/bower_components/vue/dist/custom-components.js") }}" type="text/javascript"></script>
 @yield('script')
 <script type="text/javascript">
+    $(function () {
+
+        $(".select2").select2();
+
+        @if(Session::has('success'))
+            $('#success-message').delay(3000).fadeOut();
+        @endif
+
+        @if(Session::has('errors'))
+            $('#errors-message').delay(3000).fadeOut();
+        @endif
+    });
+    
     $(document).ajaxStart(function () {
         Pace.restart();
     });

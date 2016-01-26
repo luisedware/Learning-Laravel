@@ -1,7 +1,7 @@
 @extends('admin.public.main')
 
 @section('content')
-    <div class="box" id="app">
+    <div class="box">
 
         <div class="box-header with-border">
             <h3 class="box-title">菜单列表</h3>
@@ -11,7 +11,9 @@
                     <input type="text" name="table_search" class="form-control pull-right" placeholder="快速查询">
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default disabled"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-default disabled">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -25,52 +27,25 @@
                     <th>菜单地址</th>
                     <th>操作</th>
                 </tr>
-                <tr v-for="(index,menu) in menus">
-                    <td>@{{ menu.id }}</td>
-                    <td>@{{{ menu.html }}}@{{ menu.name }}</td>
-                    <td>@{{ menu.url }}</td>
-                    <td>
-                        <a href="{{url('menu')}}/@{{ menu.id }}/edit">
-                            <button type="button" class="btn btn-primary">编辑菜单</button>
-                        </a>
-                    </td>
+            @forelse($menus as $menu)
+                <tr>
+                    <td>{{$menu->id}}</td>
+                    <td>{{$menu->name}}</td>
+                    <td>{{$menu->url}}</td>
+                    <td></td>
                 </tr>
+            @empty
+                <tr>
+                    <td colspan="4">暂无数据</td> 
+                </tr>
+            @endforelse
             </table>
         </div>
-
+        
+        @if($menus->render() !== "")
         <div class="box-footer">
-
+            {!! $menus->render() !!}
         </div>
+        @endif
     </div>
-@stop
-
-@section('script')
-    <script>
-        var vm = new Vue({
-            el: '#app',
-            ready: function () {
-//                this.$http.get('http://lumen.coding.com/menu/index', function (response) {
-//                    this.$set('menus', response);
-//                }).error(function (response, status, request) {
-//                    console.log('fail' + status + "," + request);
-//                })
-
-                $.ajax({
-                    url: "http://lumen.coding.com/menu/index",
-                    method: "GET"
-                }).
-                done(function (data) {
-                    vm.menus = data;
-                });
-
-            },
-            data: {
-                menus: ""
-            },
-            http: {
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            }
-        });
-
-    </script>
 @stop

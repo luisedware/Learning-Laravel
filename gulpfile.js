@@ -66,9 +66,9 @@ elixir(function (mix) {
     mix.scripts(
         [
             'js/jquery.min.js',
+            'js/jquery.slimscroll.js',
             'js/bootstrap.min.js',
             'js/app.min.js',
-            'js/jquery.slimscroll.js',
             'js/pace.js',
             'js/moment.js',
             'js/daterangepicker.js',
@@ -91,8 +91,8 @@ elixir(function (mix) {
             'select2.css',
             'daterangepicker-bs3.css',
             'pace.css',
-            'adminlte.css',
             'bootstrap.css',
+            'adminlte.css',
             'fontawesome.css',
             'skin-green.min.css'
         ],

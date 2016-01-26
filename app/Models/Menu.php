@@ -23,6 +23,18 @@ class Menu extends Model
     protected $fillable = ['url', 'name', 'parent_id'];
 
     /**
+     * 新增成功提示消息
+     * @var string
+     */
+    public static $storeSuccessMessage = "新增菜单成功";
+
+    /**
+     * 编辑编辑提示消息
+     * @var string
+     */
+    public static $updateSuccessMessage = "编辑菜单成功";
+
+    /**
      * 获取一维菜单列表
      * @return mixed
      */

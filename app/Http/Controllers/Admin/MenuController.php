@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Requests\MenuForm;
 use App\Models\Menu;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class MenuController extends Controller
 {
@@ -17,7 +18,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('admin.menu.index');
+        $menus = Menu::paginate(25);
+        return view('admin.menu.index')->with('menus', $menus);
     }
 
     /**
@@ -28,30 +30,30 @@ class MenuController extends Controller
     public function create()
     {
         $tree = Menu::getMenuDataModel();
-        return view('admin.menu.create',compact('tree'));
+        return view('admin.menu.create', compact('tree'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuForm $request)
     {
-        try{
-            if(Menu::create($request->all())){
-                return redirect()->route('admin.menu.index');
+        try {
+            if (Menu::create($request->all())) {
+                return Redirect::back()->withSuccess(Menu::$storeSuccessMessage);
             }
-        } catch(\Exception $e){
-            return redirect()->back()->withErrors(array('error'=>$e->getMessage()));
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -62,7 +64,7 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,8 +75,8 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -85,7 +87,7 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
