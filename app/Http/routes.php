@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::resource('order', 'OrderController');
 
     Route::group(['namespace' => 'Product'], function () {
+        Route::resource('bingo-product','BingoProductController');
         Route::resource('branch-product', 'BranchProductController');
     });
 });
