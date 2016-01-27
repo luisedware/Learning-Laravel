@@ -29,10 +29,17 @@ class Menu extends Model
     public static $storeSuccessMessage = "新增菜单成功";
 
     /**
-     * 编辑编辑提示消息
+     * 编辑成功提示消息
      * @var string
      */
     public static $updateSuccessMessage = "编辑菜单成功";
+
+
+    /**
+     * 删除成功提示消息
+     * @var string
+     */
+    public static $deleteSuccessMessage = "删除菜单成功";
 
     /**
      * 获取一维菜单列表
@@ -49,7 +56,8 @@ class Menu extends Model
      * 获取左侧菜单列表
      * @return mixed
      */
-    public static function getSiderbarMenuDataModel(){
+    public static function getSiderbarMenuDataModel()
+    {
         $menu = self::all();
         $tree = node_tree($menu);
         return $tree;

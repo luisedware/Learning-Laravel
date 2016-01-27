@@ -229,7 +229,7 @@
         var vm = new Vue({
             el: '#app',
             ready: function () {
-                this.$http.get('http://lumen.coding.com/order/index', function (response) {
+                this.$http.get('http://lumen.app/order/index', function (response) {
                     this.$set('total', response.total);
                     this.$set('orders', response.data);
                     this.$set('last_page', response.last_page);
@@ -347,7 +347,7 @@
                     console.log(page);
                     console.log(this.current_page);
                     this.$set('is_loaded', true);
-                    this.$http.get('http://lumen.coding.com/order/index?page=' + page, function (response) {
+                    this.$http.get('http://lumen.app/order/index?page=' + page, function (response) {
                         this.$set('total', response.total);
                         this.$set('orders', response.data);
                         this.$set('last_page', response.last_page);

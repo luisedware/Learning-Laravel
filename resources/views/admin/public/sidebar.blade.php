@@ -34,7 +34,7 @@
                     @if(!empty($item->child))
                         <ul class="treeview-menu">
                             @foreach($item->child as $child)
-                                <li><a href="{{$child->url}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a></li>
+                                <li><a href="{{URL::to($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a></li>
                             @endforeach
                         </ul>
                     @endif

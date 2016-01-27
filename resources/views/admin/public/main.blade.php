@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $page_title or "AdminLTE Dashboard" }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <title>{{ $page_title or "AdminLTE Dashboard" }}</title>
     <link href="{{ asset("/assets/css/admin.css") }}" rel="stylesheet" type="text/css"/>
     @yield('style')
 </head>
-<body class="hold-transition skin-green sidebar-mini">
+<body class="hold-transition skin-green fixed">
 <div class="wrapper">
-
-    <!-- Header -->
     @include('admin.public.header')
-
-    <!-- Sidebar -->
     @include('admin.public.sidebar')
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
                 {{ $page_title or "Page Title" }}
                 <small>{{ $page_description or "Page Description" }}</small>
             </h1>
-            <!-- You can dynamically generate breadcrumbs here -->
             <ol class="breadcrumb">
                 <li>
                     <a href="#">
@@ -35,42 +26,32 @@
             </ol>
         </section>
 
-        <!-- Main content -->
         <section class="content">
-            <!-- Your Page Content Here -->
             @include('admin.public.message.success')
             @include('admin.public.message.error')
             @yield('content')
-        </section><!-- /.content -->
-    </div><!-- /.content-wrapper -->
-
-    <!-- Footer -->
+        </section>
+    </div>
     @include('admin.public.footer')
-
-</div><!-- ./wrapper -->
-
-<!-- REQUIRED JS SCRIPTS -->
+</div>
 <script src="{{ asset ("/assets/js/admin.js") }}"></script>
 <script src="{{ asset ("/bower_components/vue/dist/custom-filters.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/bower_components/vue/dist/custom-components.js") }}" type="text/javascript"></script>
-@yield('script')
 <script type="text/javascript">
     $(function () {
-
-        $(".select2").select2();
-
         @if(Session::has('success'))
-            $('#success-message').delay(3000).fadeOut();
+            $('#success-message').delay(5000).fadeOut();
         @endif
 
         @if(Session::has('errors'))
-            $('#errors-message').delay(3000).fadeOut();
+            $('#errors-message').delay(5000).fadeOut();
         @endif
     });
-    
+
     $(document).ajaxStart(function () {
         Pace.restart();
     });
 </script>
+@yield('script')
 </body>
 </html>

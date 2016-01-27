@@ -19,7 +19,9 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::paginate(25);
-        return view('admin.menu.index')->with('menus', $menus);
+        $page_title = "菜单管理";
+        $page_description = "管理菜单的新增、编辑、删除";
+        return view('admin.menu.index',compact('menus','page_title','page_description'));
     }
 
     /**
@@ -30,7 +32,9 @@ class MenuController extends Controller
     public function create()
     {
         $tree = Menu::getMenuDataModel();
-        return view('admin.menu.create', compact('tree'));
+        $page_title = "新增菜单";
+        $page_description = "";
+        return view('admin.menu.create', compact('tree','page_title','page_description'));
     }
 
     /**
@@ -69,7 +73,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $menu = Menu::find($id);
+        $tree = Menu::getMenuDataModel();
+        return view('admin.menu.edit', compact('menu', 'tree'));
     }
 
     /**
@@ -79,9 +85,18 @@ class MenuController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuForm $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        try {
+            if (Menu::where('id', $id)->update($data)) {
+                return Redirect::back()->withSuccess(Menu::$updateSuccessMessage);
+            }
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
     }
 
     /**
@@ -92,6 +107,18 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $child_menus = Menu::Where('parent_id','=',$id)->get()->toArray();
+
+        if(!empty($child_menus)){
+            return Redirect::back()->withErrors(array('error'=>'请先删除其下级分类'));
+        }
+
+        try{
+            if(Menu::destroy($id)){
+                return Redirect::back()->withSuccess(Menu::$deleteSuccessMessage);
+            }
+        }catch(\Exception $e){
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()));
+        }
     }
 }

@@ -42,7 +42,7 @@ gulp.task("copyfiles", function () {
     gulp.src("vendor/bower_dl/AdminLTE/plugins/select2/select2.css")
         .pipe(gulp.dest("resources/assets/css/"));
     gulp.src("vendor/bower_dl/AdminLTE/plugins/select2/select2.js")
-        .pipe(gulp.dest("rresources/assets/js/"));
+        .pipe(gulp.dest("resources/assets/js/"));
     gulp.src("vendor/bower_dl/AdminLTE/plugins/select2/select2.full.js")
         .pipe(gulp.dest("resources/assets/js/"));
 
