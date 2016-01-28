@@ -21,7 +21,8 @@ class MenuController extends Controller
         $menus = Menu::paginate(25);
         $page_title = "菜单管理";
         $page_description = "管理菜单的新增、编辑、删除";
-        return view('admin.menu.index',compact('menus','page_title','page_description'));
+
+        return view('admin.menu.index', compact('menus', 'page_title', 'page_description'));
     }
 
     /**
@@ -33,8 +34,9 @@ class MenuController extends Controller
     {
         $tree = Menu::getMenuDataModel();
         $page_title = "新增菜单";
-        $page_description = "";
-        return view('admin.menu.create', compact('tree','page_title','page_description'));
+        $page_description = "新增菜单的页面";
+
+        return view('admin.menu.create', compact('tree', 'page_title', 'page_description'));
     }
 
     /**
@@ -47,7 +49,7 @@ class MenuController extends Controller
     {
         try {
             if (Menu::create($request->all())) {
-                return Redirect::back()->withSuccess(Menu::$storeSuccessMessage);
+                return Redirect::back()->withSuccess('新增菜单成功');
             }
         } catch (\Exception $e) {
             return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
@@ -75,14 +77,17 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         $tree = Menu::getMenuDataModel();
-        return view('admin.menu.edit', compact('menu', 'tree'));
+        $page_title = "编辑菜单";
+        $page_description = "编辑菜单的页面";
+
+        return view('admin.menu.edit', compact('menu', 'tree', 'page_title', 'page_description'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(MenuForm $request, $id)
@@ -92,7 +97,7 @@ class MenuController extends Controller
         unset($data['_method']);
         try {
             if (Menu::where('id', $id)->update($data)) {
-                return Redirect::back()->withSuccess(Menu::$updateSuccessMessage);
+                return Redirect::back()->withSuccess('编辑菜单成功');
             }
         } catch (\Exception $e) {
             return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
@@ -107,17 +112,17 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $child_menus = Menu::Where('parent_id','=',$id)->get()->toArray();
+        $child_menus = Menu::Where('parent_id', '=', $id)->get()->toArray();
 
-        if(!empty($child_menus)){
-            return Redirect::back()->withErrors(array('error'=>'请先删除其下级分类'));
+        if (!empty($child_menus)) {
+            return Redirect::back()->withErrors(array('error' => '请先删除其下级分类'));
         }
 
-        try{
-            if(Menu::destroy($id)){
-                return Redirect::back()->withSuccess(Menu::$deleteSuccessMessage);
+        try {
+            if (Menu::destroy($id)) {
+                return Redirect::back()->withSuccess('删除菜单成功');
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return Redirect::back()->withErrors(array('error' => $e->getMessage()));
         }
     }

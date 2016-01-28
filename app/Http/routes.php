@@ -18,8 +18,10 @@ Route::group(['namespace' => 'Admin'], function () {
 
     Route::resource('user', 'UserController');
     Route::resource('menu', 'MenuController', ['except' => 'show']);
-    Route::resource('index', 'IndexController');
-    Route::resource('order', 'OrderController');
+    Route::resource('role', 'RoleController', ['except' => 'show']);
+    Route::resource('index', 'IndexController', ['except' => 'show']);
+    Route::resource('order', 'OrderController', ['except' => 'show']);
+    Route::resource('permission', 'PermissionController', ['except' => 'show']);
 
     Route::group(['namespace' => 'Product'], function () {
         Route::resource('bingo-product', 'BingoProductController');

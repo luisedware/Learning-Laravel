@@ -10,7 +10,8 @@
         "twbs/bootstrap": "^3.3",
         "laravelcollective/html": "5.1.*",
         "spekkionu/laravel-zend-acl": "3.*",
-        "dingo/api": "1.0.x@dev"
+        "dingo/api": "1.0.x@dev",
+        "zizaco/entrust": "dev-laravel-5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

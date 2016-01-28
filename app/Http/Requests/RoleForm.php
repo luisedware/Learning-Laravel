@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class MenuForm extends Request
+class RoleForm extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,18 @@ class MenuForm extends Request
     public function rules()
     {
         return [
-            'url'       => 'required',
-            'name'      => 'required',
-            'parent_id' => 'required'
+            'name'         => 'required',
+            'display_name' => 'required',
+            'description'  => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'url.required'       => '菜单地址不能为空',
-            'name.required'      => '菜单名称不能为空',
-            'parent_id.required' => '父级分类不能为空'
+            'name.required'         => '角色标识不能为空',
+            'display_name.required' => '角色名称不能为空',
+            'description.required'  => '角色描述不能为空'
         ];
     }
 }
