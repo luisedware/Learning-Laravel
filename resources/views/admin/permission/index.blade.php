@@ -5,10 +5,10 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">菜单操作</h3>
+                    <h3 class="box-title">管理操作</h3>
                 </div>
                 <div class="box-body">
-                    <a href="{{URL::to('menu/create')}}" class="btn btn-success">新增菜单</a>
+                    <a href="{{URL::to('permission/create')}}" class="btn btn-success">新增权限</a>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <div class="box">
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">菜单列表</h3>
+                    <h3 class="box-title">权限列表</h3>
 
                     <div class="box-tools pull-right">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -36,36 +36,38 @@
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tr>
-                            <th>菜单编号</th>
-                            <th>菜单名称</th>
-                            <th>菜单地址</th>
-                            <th>操作</th>
+                            <th>权限编号</th>
+                            <th>权限标识</th>
+                            <th>权限名称</th>
+                            <th>权限描述</th>
+                            <th>管理操作</th>
                         </tr>
-                        @forelse($menus as $menu)
+                        @forelse($permissions as $permission)
                             <tr>
-                                <td>{{$menu->id}}</td>
-                                <td>{{$menu->name}}</td>
-                                <td>{{$menu->url}}</td>
+                                <td>{{$permission->id}}</td>
+                                <td>{{$permission->name}}</td>
+                                <td>{{$permission->display_name}}</td>
+                                <td>{{$permission->description}}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{URL::to('menu/'.$menu->id.'/edit')}}">
+                                    <a class="btn btn-info" href="{{URL::to('permission/'.$permission->id.'/edit')}}">
                                         编辑
                                     </a>
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('menu/'.$menu->id)}}">
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('permission/'.$permission->id)}}">
                                         删除
                                     </button>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">暂无数据</td>
+                                <td colspan="5" class="text-center">暂无数据</td>
                             </tr>
                         @endforelse
                     </table>
                 </div>
 
-                @if($menus->render() !== "")
+                @if($permissions->render() !== "")
                     <div class="box-footer">
-                        {!! $menus->render() !!}
+                        {!! $permissions->render() !!}
                     </div>
                 @endif
             </div>

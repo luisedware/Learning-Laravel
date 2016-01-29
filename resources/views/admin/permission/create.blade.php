@@ -3,35 +3,30 @@
     <div class="row">
         <div class="col-md-6">
             <div class="box box-info">
-                <form class="form-horizontal" action="{{URL::to('menu')}}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{URL::to('permission')}}" method="post" enctype="multipart/form-data">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{$page_title}}</h3>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">父级菜单</label>
+                            <label for="name" class="col-sm-3 control-label">权限标识</label>
                             <div class="col-sm-9">
-                                <select class="form-control select2" name="parent_id">
-                                    <option value="0">顶级元素</option>
-                                    @foreach($tree as $menu)
-                                        <option value="{{$menu->id}}" @if(old('parent_id') == $menu->id) selected @endif >{{$menu->html}}{{$menu->name}}</option>
-                                    @endforeach
-                                </select>
-                                @include('admin.public.message.tips',['field'=>'parent_id'])
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label">菜单名称</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="菜单名称" value="{{old('name')}}">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="权限标识" value="{{old('name')}}">
                                 @include('admin.public.message.tips',['field'=>'name'])
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="url" class="col-sm-3 control-label">菜单地址</label>
+                            <label for="display_name" class="col-sm-3 control-label">权限名称</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="url" name="url" placeholder="Controller/method" value="{{old('url')}}">
+                                <input type="text" class="form-control" id="display_name" name="display_name" placeholder="权限名称" value="{{old('display_name')}}">
+                                @include('admin.public.message.tips',['field'=>'url'])
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-3 control-label">权限描述</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="description" name="description" placeholder="权限名称" value="{{old('description')}}">
                                 @include('admin.public.message.tips',['field'=>'url'])
                             </div>
                         </div>

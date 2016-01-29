@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Http\Requests\PermissionForm;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class PermissionController extends Controller
 {
@@ -16,7 +18,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $page_title = "权限管理";
+        $page_description = "管理权限的新增、编辑、删除";
+        $permissions = Permission::getAllPermissions();
+
+        return view('admin.permission.index', compact('page_title', 'page_description', 'permissions'));
     }
 
     /**
@@ -26,62 +32,90 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        $page_title = "新增权限";
+        $page_description = "新增权限的页面";
+
+        return view('admin.permission.create', compact('page_title', 'page_description'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionForm $request)
     {
-        //
+        try {
+            if (Permission::create($request->all())) {
+                return Redirect::back()->withSuccess('新增权限成功');
+            }
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::getPermissionById($id);
+        $page_title = "编辑权限";
+        $page_description = "编辑权限的页面";
+
+        return view('admin.permission.edit', compact('page_title', 'page_description', 'permission'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        try {
+            if (Permission::where('id', $id)->update($data)) {
+                return Redirect::back()->withSuccess('编辑权限成功');
+            }
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            if (Permission::destroy($id)) {
+                return Redirect::back()->withSuccess('删除菜单成功');
+            }
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()));
+        }
     }
 }
