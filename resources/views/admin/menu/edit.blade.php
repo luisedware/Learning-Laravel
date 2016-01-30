@@ -14,7 +14,7 @@
                             <label class="col-sm-3 control-label">父级菜单</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" name="parent_id">
-                                    <option value="0">顶级元素</option>
+                                    <option value="0">/</option>
                                     @foreach($tree as $data)
                                         <option value="{{$data->id}}" @if($menu->parent_id == $data->id) selected @endif >{{$data->html}}{{$data->name}}</option>
                                     @endforeach

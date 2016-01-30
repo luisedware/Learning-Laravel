@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Permission;
+use App\Http\Requests\PermissionForm;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Requests\PermissionForm;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 
 class PermissionController extends Controller
 {
@@ -48,10 +48,10 @@ class PermissionController extends Controller
     {
         try {
             if (Permission::create($request->all())) {
-                return Redirect::back()->withSuccess('新增权限成功');
+                return redirect()->back()->withSuccess('新增权限成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -95,10 +95,10 @@ class PermissionController extends Controller
         unset($data['_method']);
         try {
             if (Permission::where('id', $id)->update($data)) {
-                return Redirect::back()->withSuccess('编辑权限成功');
+                return redirect()->back()->withSuccess('编辑权限成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -112,10 +112,10 @@ class PermissionController extends Controller
     {
         try {
             if (Permission::destroy($id)) {
-                return Redirect::back()->withSuccess('删除菜单成功');
+                return redirect()->back()->withSuccess('删除菜单成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()));
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()));
         }
     }
 }

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\RoleForm;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 
 class RoleController extends Controller
 {
@@ -49,10 +48,10 @@ class RoleController extends Controller
     {
         try {
             if (Role::create($request->all())) {
-                return Redirect::back()->withSuccess('新增角色成功');
+                return redirect()->back()->withSuccess('新增角色成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -96,10 +95,10 @@ class RoleController extends Controller
         unset($data['_method']);
         try {
             if (Role::where('id', $id)->update($data)) {
-                return Redirect::back()->withSuccess('编辑角色成功');
+                return redirect()->back()->withSuccess('编辑角色成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -113,10 +112,10 @@ class RoleController extends Controller
     {
         try {
             if (Role::destroy($id)) {
-                return Redirect::back()->withSuccess('删除角色成功');
+                return redirect()->back()->withSuccess('删除角色成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()));
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()));
         }
     }
 }

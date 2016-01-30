@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Http\Requests\MenuForm;
 use App\Models\Menu;
+use App\Http\Requests\MenuForm;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {
@@ -49,10 +49,10 @@ class MenuController extends Controller
     {
         try {
             if (Menu::create($request->all())) {
-                return Redirect::back()->withSuccess('新增菜单成功');
+                return redirect()->back()->withSuccess('新增菜单成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -95,12 +95,13 @@ class MenuController extends Controller
         $data = $request->all();
         unset($data['_token']);
         unset($data['_method']);
+
         try {
             if (Menu::where('id', $id)->update($data)) {
-                return Redirect::back()->withSuccess('编辑菜单成功');
+                return redirect()->back()->withSuccess('编辑菜单成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -115,15 +116,15 @@ class MenuController extends Controller
         $child_menus = Menu::Where('parent_id', '=', $id)->get()->toArray();
 
         if (!empty($child_menus)) {
-            return Redirect::back()->withErrors(array('error' => '请先删除其下级分类'));
+            return redirect()->back()->withErrors(array('error' => '请先删除其下级分类'));
         }
 
         try {
             if (Menu::destroy($id)) {
-                return Redirect::back()->withSuccess('删除菜单成功');
+                return redirect()->back()->withSuccess('删除菜单成功');
             }
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()));
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()));
         }
     }
 }

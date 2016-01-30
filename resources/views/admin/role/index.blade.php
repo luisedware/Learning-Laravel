@@ -8,7 +8,7 @@
                     <h3 class="box-title">管理操作</h3>
                 </div>
                 <div class="box-body">
-                    <a href="{{URL::to('role/create')}}" class="btn btn-success">新增角色</a>
+                    <a href="{{URL::to('user/create')}}" class="btn btn-success">新增角色</a>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <div class="box">
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">菜单列表</h3>
+                    <h3 class="box-title">角色列表</h3>
 
                     <div class="box-tools pull-right">
                         <div class="input-group input-group-sm" style="width: 150px;">

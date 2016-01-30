@@ -20,14 +20,14 @@
                             <label for="display_name" class="col-sm-3 control-label">权限名称</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="display_name" name="display_name" placeholder="权限名称" value="{{old('display_name')}}">
-                                @include('admin.public.message.tips',['field'=>'url'])
+                                @include('admin.public.message.tips',['field'=>'display_name'])
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description" class="col-sm-3 control-label">权限描述</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="description" name="description" placeholder="权限名称" value="{{old('description')}}">
-                                @include('admin.public.message.tips',['field'=>'url'])
+                                @include('admin.public.message.tips',['field'=>'description'])
                             </div>
                         </div>
                     </div>
@@ -41,11 +41,4 @@
             </div>
         </div>
     </div>
-@stop
-@section('script')
-    <script type="text/javascript">
-        $(function () {
-            $(".select2").select2();
-        });
-    </script>
 @stop

@@ -3,37 +3,38 @@
     <div class="row">
         <div class="col-md-6">
             <div class="box box-info">
-                <form class="form-horizontal" action="{{URL::to('user')}}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{URL::to('user/'.$user->id)}}" method="post" enctype="multipart/form-data">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{$page_title}}</h3>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_method" value="put">
                     </div>
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name" class="col-sm-3 control-label">用户名称</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="用户名称" value="{{old('name')}}">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="用户名称" value="{{$user->name}}">
                                 @include('admin.public.message.tips',['field'=>'name'])
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-3 control-label">用户邮箱</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="email" name="email" placeholder="用户邮箱" value="{{old('email')}}">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="用户邮箱" value="{{$user->email}}">
                                 @include('admin.public.message.tips',['field'=>'email'])
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-3 control-label">用户密码</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="password" name="password" placeholder="用户密码" value="{{old('password')}}">
+                                <input type="text" class="form-control" id="password" name="password" placeholder="用户密码" value="{{$user->password}}">
                                 @include('admin.public.message.tips',['field'=>'password'])
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password_confirmation" class="col-sm-3 control-label">确认密码</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="确认密码" value="{{old('password_confirmation')}}">
+                                <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="确认密码" value="{{$user->password_confirmation}}">
                                 @include('admin.public.message.tips',['field'=>'password_confirmation'])
                             </div>
                         </div>

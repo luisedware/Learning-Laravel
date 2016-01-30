@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    @include('admin.public.model.default',['model_title'=>'操作提示','model_content'=>'你确定要删除这条菜单吗?'])
+    @include('admin.public.model.default',['model_title'=>'操作提示','model_content'=>'你确定要删除这条权限吗?'])
 @stop
 @section('script')
     <script type="text/javascript">

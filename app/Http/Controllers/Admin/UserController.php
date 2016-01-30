@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Requests\UserForm;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -16,7 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        $page_title = "用户管理";
+        $page_description = "管理用户的新增、编辑、删除";
+        $users = User::getAllUsers();
+
+        return view('admin.user.index', compact('page_title', 'page_description', 'users'));
     }
 
     /**
@@ -26,24 +31,33 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $page_title = "新增用户";
+        $page_description = "新增用户的页面";
+
+        return view('admin.user.create', compact('page_title', 'page_description'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserForm $request)
     {
-        //
+        try {
+            if (User::create($request->all())) {
+                return redirect()->back()->withSuccess('新增用户成功');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -54,34 +68,55 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user = User::getUserById($id);
+        $page_title = "编辑用户";
+        $page_description = "编辑用户的页面";
+
+        return view('admin.user.edit', compact('page_title', 'page_description', 'user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserForm $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        unset($data['password_confirmation']);
+
+        try {
+            if (User::where('id', $id)->update($data)) {
+                return redirect()->back()->withSuccess('编辑用户成功');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            if (User::destroy($id)) {
+                return redirect()->back()->withSuccess('删除用户成功');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()));
+        }
     }
 }
