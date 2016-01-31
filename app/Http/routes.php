@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::resource('role', 'RoleController', ['except' => 'show']);
     Route::resource('index', 'IndexController', ['except' => 'show']);
     Route::resource('order', 'OrderController', ['except' => 'show']);
+    Route::resource('login', 'LoginController');
     Route::resource('permission', 'PermissionController', ['except' => 'show']);
 
     Route::group(['namespace' => 'Product'], function () {

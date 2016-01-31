@@ -54,6 +54,16 @@ gulp.task("copyfiles", function () {
     gulp.src('vendor/bower_dl/AdminLTE/plugins/daterangepicker/daterangepicker-bs3.css')
         .pipe(gulp.dest("resources/assets/css/"));
 
+    //iCheck
+    gulp.src('vendor/bower_dl/AdminLTE/plugins/iCheck/icheck.js')
+        .pipe(gulp.dest('resources/assets/js/'));
+    gulp.src('vendor/bower_dl/AdminLTE/plugins/iCheck/square/green.css')
+        .pipe(gulp.dest('resources/assets/css/'));
+    gulp.src('vendor/bower_dl/AdminLTE/plugins/iCheck/square/green.png')
+        .pipe(gulp.dest('public/assets/css/'));
+    gulp.src('vendor/bower_dl/AdminLTE/plugins/iCheck/square/green@2x.png')
+        .pipe(gulp.dest('public/assets/css/'));
+
     //vue vue-resource
     gulp.src('vendor/bower_dl/vue/dist/vue.js')
         .pipe(gulp.dest("resources/assets/js/"));;
@@ -66,13 +76,14 @@ elixir(function (mix) {
     mix.scripts(
         [
             'js/jquery.min.js',
-            'js/jquery.slimscroll.js',
             'js/bootstrap.min.js',
             'js/app.min.js',
+            'js/jquery.slimscroll.js',
             'js/pace.js',
             'js/moment.js',
             'js/daterangepicker.js',
             'js/select2.full.js',
+            'js/icheck.js',
             'js/vue.js',
             'js/vue-resource.js'
         ],
@@ -91,6 +102,7 @@ elixir(function (mix) {
             'select2.css',
             'daterangepicker-bs3.css',
             'pace.css',
+            'green.css',
             'bootstrap.css',
             'adminlte.css',
             'fontawesome.css',
