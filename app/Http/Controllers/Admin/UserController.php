@@ -45,8 +45,14 @@ class UserController extends Controller
      */
     public function store(UserForm $request)
     {
+        $data = [
+            'name'     => $request['name'],
+            'email'    => $request['email'],
+            'password' => bcrypt($request['password']),
+        ];
+
         try {
-            if (User::create($request->all())) {
+            if (User::create($data)) {
                 return redirect()->back()->withSuccess('新增用户成功');
             }
         } catch (\Exception $e) {
@@ -89,10 +95,11 @@ class UserController extends Controller
      */
     public function update(UserForm $request, $id)
     {
-        $data = $request->all();
-        unset($data['_token']);
-        unset($data['_method']);
-        unset($data['password_confirmation']);
+        $data = [
+            'name'     => $request['name'],
+            'email'    => $request['email'],
+            'password' => bcrypt($request['password']),
+        ];
 
         try {
             if (User::where('id', $id)->update($data)) {

@@ -15,14 +15,15 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="{{URL::to('login/signIn')}}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('auth/login')}}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" placeholder="账号">
-                <span class="fa fa-user fa-2x form-control-feedback"></span>
+                <span class="fa fa-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" placeholder="密码">
-                <span class="fa fa-lock fa-2x form-control-feedback"></span>
+                <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <div class="row form-group has-feedback">
                 <div class="col-xs-6">
@@ -30,14 +31,14 @@
                     <span class="form-control-feedback"></span>
                 </div>
                 <div class="col-xs-4">
-                    <i class="fa fa-image fa-2x" style="width:100%;height: 100%;">TODO</i>
+                    <i class="fa fa-image" style="width:100%;height: 100%;">TODO</i>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> Remember Me
+                            <input type="checkbox">
                         </label>
                     </div>
                 </div>

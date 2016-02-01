@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label for="password" class="col-sm-3 control-label">用户密码</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="password" name="password" placeholder="用户密码" value="{{$user->password}}">
+                                <input type="text" class="form-control" id="password" name="password" placeholder="用户密码">
                                 @include('admin.public.message.tips',['field'=>'password'])
                             </div>
                         </div>
