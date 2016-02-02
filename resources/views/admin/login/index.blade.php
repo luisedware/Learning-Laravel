@@ -15,7 +15,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="{{URL::to('auth/login')}}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('/auth/login')}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" placeholder="账号">
