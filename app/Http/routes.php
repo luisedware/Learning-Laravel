@@ -14,14 +14,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::group(['namespace' => 'Admin','middleware'=>'auth'], function () {
 
     Route::resource('user', 'UserController');
     Route::resource('menu', 'MenuController', ['except' => 'show']);
     Route::resource('role', 'RoleController', ['except' => 'show']);
     Route::resource('index', 'IndexController', ['except' => 'show']);
     Route::resource('order', 'OrderController', ['except' => 'show']);
-    Route::resource('login', 'LoginController');
     Route::resource('permission', 'PermissionController', ['except' => 'show']);
 
     Route::group(['namespace' => 'Product'], function () {
@@ -30,8 +29,12 @@ Route::group(['namespace' => 'Admin'], function () {
     });
 });
 
-Route::get('/auth/login', 'Auth\AuthController@getLogin');
-Route::post('/auth/login', 'Auth\AuthController@postLogin');
-Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+Route::group(['namespace' => 'Auth'], function () {
+    Route::get('auth/login', 'AuthController@getLogin');
+    Route::post('auth/login', 'AuthController@postLogin');
+    Route::get('auth/logout', 'AuthController@getLogout');
 
+    Route::get('auth/register', 'AuthController@getRegister');
+    Route::post('auth/register', 'AuthController@postRegister');
+});
 
