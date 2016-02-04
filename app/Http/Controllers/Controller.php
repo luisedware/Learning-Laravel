@@ -8,14 +8,16 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Dingo\Api\Routing\Helpers;
+use Illuminate\Support\Facades\Auth;
 
 abstract class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,Helpers;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Helpers;
 
     public function __construct()
     {
         $sidebar_menu = Menu::getSiderbarMenuDataModel();
-        view()->share('sidebar_menu',$sidebar_menu);
+        view()->share('user_info', Auth::user()->toArray());
+        view()->share('sidebar_menu', $sidebar_menu);
     }
 }

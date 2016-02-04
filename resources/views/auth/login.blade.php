@@ -17,28 +17,29 @@
 
         <form action="{{URL::to('/auth/login')}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group has-feedback">
+            <div class="row form-group has-feedback">
                 <input type="email" class="form-control" placeholder="账号" name="email">
                 <span class="fa fa-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="密码" name="password">
-                <span class="fa fa-lock form-control-feedback"></span>
+                @include('admin.public.message.tips',['field'=>'email'])
             </div>
             <div class="row form-group has-feedback">
-                <div class="col-xs-6">
-                    <input type="text" class="form-control" placeholder="验证码">
-                    <span class="form-control-feedback"></span>
-                </div>
-                <div class="col-xs-4">
-                    <i class="fa fa-image" style="width:100%;height: 100%;">TODO</i>
-                </div>
+                <input type="password" class="form-control" placeholder="密码" name="password">
+                <span class="fa fa-lock form-control-feedback"></span>
+                @include('admin.public.message.tips',['field'=>'password'])
+            </div>
+            <div class="row form-group has-feedback">
+                <input type="text" class="form-control" placeholder="验证码" name="captcha">
+                <span class="fa fa-image form-control-feedback"></span>
+                @include('admin.public.message.tips',['field'=>'captcha'])
+            </div>
+            <div class="row form-group has-feedback">
+                <img src="{{$captcha}}" alt="图片验证码" style="width: 100%;">
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember" value="1">
+                            <input type="checkbox" name="remember" value="1"> 保持登录
                         </label>
                     </div>
                 </div>
@@ -49,16 +50,16 @@
         </form>
 
         <div class="social-auth-links text-center">
-            <p>- 其他 -</p>
+            <p>- 或者 -</p>
             <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
-                Sign in using Facebook
+                Facebook登录
             </a>
             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
-                Sign in using Google+
+                Google登录
             </a>
         </div>
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="#">忘记密码</a><br>
+        <a href="{{URL::to('auth/register')}}" class="text-center">注册新账号</a>
     </div>
 </div>
 <script src="{{ asset ("/assets/js/admin.js") }}"></script>
@@ -67,7 +68,7 @@
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
+            increaseArea: '20%'
         });
     });
 </script>

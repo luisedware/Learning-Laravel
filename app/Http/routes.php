@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin','middleware'=>'auth'], function () {
+Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
     Route::resource('user', 'UserController');
     Route::resource('menu', 'MenuController', ['except' => 'show']);
@@ -36,5 +36,8 @@ Route::group(['namespace' => 'Auth'], function () {
 
     Route::get('auth/register', 'AuthController@getRegister');
     Route::post('auth/register', 'AuthController@postRegister');
+
+    Route::get('password/email', 'PasswordController@getEmail');
+    Route::post('password/email', 'PasswordController@postEmail');
 });
 
