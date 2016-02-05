@@ -8,7 +8,7 @@ class Role extends EntrustRole
 {
     protected $fillable = ['name','display_name','description'];
 
-    public static function getAllRoles()
+    public static function getAllRolesList()
     {
         return self::paginate(25);
     }
@@ -16,5 +16,10 @@ class Role extends EntrustRole
     public static function getRoleById($id)
     {
         return self::find($id);
+    }
+
+    public static function getAllRolesModelData()
+    {
+        return self::all();
     }
 }

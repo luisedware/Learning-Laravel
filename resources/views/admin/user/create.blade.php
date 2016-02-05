@@ -10,6 +10,18 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">用户角色</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" name="role_id">
+                                    <option value="0">/</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->display_name}}</option>
+                                    @endforeach
+                                </select>
+                                @include('admin.public.message.tips',['field'=>'role_id'])
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="name" class="col-sm-3 control-label">用户名称</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="用户名称" value="{{old('name')}}">

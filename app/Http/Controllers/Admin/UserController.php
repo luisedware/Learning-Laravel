@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\UserForm;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,10 +32,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = Role::getAllRolesModelData();
         $page_title = "新增用户";
         $page_description = "新增用户的页面";
 
-        return view('admin.user.create', compact('page_title', 'page_description'));
+        return view('admin.user.create', compact('roles', 'page_title', 'page_description'));
     }
 
     /**
@@ -49,10 +51,24 @@ class UserController extends Controller
             'name'     => $request['name'],
             'email'    => $request['email'],
             'password' => bcrypt($request['password']),
+            'role_id'  => $request['role_id']
         ];
 
         try {
-            if (User::create($data)) {
+            $user = User::create($data);
+            if ($user) {
+
+                if (!empty($data['role_id'])) {
+                    $role = Role::find($data['role_id']);
+
+                    if ($role) {
+                        $user->attachRole($role);
+                    }else {
+                        $user->delete();
+                        return redirect()->back()->withErrors("用户角色不存在")->withInput();
+                    }
+                }
+
                 return redirect()->back()->withSuccess('新增用户成功');
             }
         } catch (\Exception $e) {
