@@ -46,6 +46,12 @@
         @if(Session::has('errors'))
             $('#errors-message').delay(5000).fadeOut();
         @endif
+
+         $('input').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%'
+        });
     });
 
     $(document).ajaxStart(function () {

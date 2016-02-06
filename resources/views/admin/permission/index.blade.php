@@ -52,9 +52,9 @@
                                     <a class="btn btn-info" href="{{URL::to('permission/'.$permission->id.'/edit')}}">
                                         编辑
                                     </a>
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('permission/'.$permission->id)}}">
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('permission/'.$permission->id)}}">
                                         删除
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @empty

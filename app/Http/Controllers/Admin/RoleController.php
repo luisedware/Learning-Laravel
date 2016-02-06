@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::getAllRoles();
+        $roles = Role::getAllRolesList();
         $page_title = "角色管理";
         $page_description = "管理角色的新增、编辑、删除";
 
@@ -63,7 +63,10 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $page_title = "赋予权限";
+        $page_description = "赋予角色权限的页面";
+
+        return view('admin.role.show', compact('page_title', 'page_description'));
     }
 
     /**

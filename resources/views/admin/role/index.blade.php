@@ -8,7 +8,7 @@
                     <h3 class="box-title">管理操作</h3>
                 </div>
                 <div class="box-body">
-                    <a href="{{URL::to('user/create')}}" class="btn btn-success">新增角色</a>
+                    <a href="{{URL::to('role/create')}}" class="btn btn-success">新增角色</a>
                 </div>
             </div>
         </div>
@@ -52,9 +52,12 @@
                                     <a class="btn btn-info" href="{{URL::to('role/'.$role->id.'/edit')}}">
                                         编辑
                                     </a>
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('role/'.$role->id)}}">
+                                    <a class="btn btn-primary" href="{{URL::to('role/'.$role->id)}}">
+                                        赋权
+                                    </a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#defalutModal" data-url="{{URL::to('role/'.$role->id)}}">
                                         删除
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @empty

@@ -17,8 +17,8 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
     Route::resource('user', 'UserController');
+    Route::resource('role', 'RoleController');
     Route::resource('menu', 'MenuController', ['except' => 'show']);
-    Route::resource('role', 'RoleController', ['except' => 'show']);
     Route::resource('index', 'IndexController', ['except' => 'show']);
     Route::resource('order', 'OrderController', ['except' => 'show']);
     Route::resource('permission', 'PermissionController', ['except' => 'show']);

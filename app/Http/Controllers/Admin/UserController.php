@@ -63,8 +63,9 @@ class UserController extends Controller
 
                     if ($role) {
                         $user->attachRole($role);
-                    }else {
+                    } else {
                         $user->delete();
+
                         return redirect()->back()->withErrors("用户角色不存在")->withInput();
                     }
                 }
