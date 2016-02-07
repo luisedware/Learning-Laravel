@@ -25,15 +25,15 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            @foreach($sidebar_menu as $item)
+            @foreach($sidebar_menus as $menu)
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>{{$item->name}}</span>
+                        <i class="fa fa-dashboard"></i> <span>{{$menu->name}}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
-                    @if(!empty($item->child))
+                    @if(!empty($menu->child))
                         <ul class="treeview-menu">
-                            @foreach($item->child as $child)
+                            @foreach($menu->child as $child)
                                 <li><a href="{{URL::to($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a></li>
                             @endforeach
                         </ul>

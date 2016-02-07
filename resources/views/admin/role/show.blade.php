@@ -12,27 +12,46 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box">
-
-                                    <div class="box-body table-responsive no-padding">
-                                        <table class="table table-hover">
-                                            <tr>
-                                                <th><input type="checkbox" class="checkbox icheck" name="menu_ids"></th>
-                                                <th>菜单名称</th>
-                                                <th>菜单地址</th>
-                                            </tr>
-                                        </table>
-                                    </div>
-
-                                    <div class="box-footer">
-                                        <button class="btn btn-default" type="submit">返 回</button>
-                                        <button class="btn btn-success" type="submit">确 定</button>
+                        @forelse($sidebar_menus as $menu)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-warning">
+                                        <div class="box-header with-border">
+                                            <label>
+                                                <input class="checkbox icheck" type="checkbox">
+                                                <span>{{$menu->name}}</span>
+                                            </label>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                                        title="Collapse">
+                                                    <i class="fa fa-minus"></i></button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                                        title="Remove">
+                                                    <i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body responsive no-padding">
+                                            <table class="table table-hover">
+                                                @forelse($menu->child as $child)
+                                                    <tr>
+                                                        <td style="width: 50%">
+                                                            <label>
+                                                                <input type="checkbox" class="checkbox icheck" value="{{$child->id}}">
+                                                                {{$child->html}}{{$child->name}}
+                                                            </label>
+                                                        </td>
+                                                        <td style="width:50%">{{$child->url}}</td>
+                                                    </tr>
+                                                @empty
+                                                @endforelse
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @empty
+
+                        @endforelse
                     </div>
                     <div class="tab-pane" id="tab_2">
                         The European languages are members of the same family. Their separate existence is a myth.

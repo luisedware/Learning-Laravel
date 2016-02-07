@@ -16,8 +16,8 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        $sidebar_menu = Menu::getSiderbarMenuDataModel();
+        $sidebar_menus = Menu::getSiderbarMenuDataModel();
         view()->share('user_info', Auth::user()->toArray());
-        view()->share('sidebar_menu', $sidebar_menu);
+        view()->share('sidebar_menus', $sidebar_menus);
     }
 }
