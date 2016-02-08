@@ -16,14 +16,24 @@ class Menu extends Model
      */
     protected $fillable = ['url', 'name', 'parent_id'];
 
+
+    /**
+     * 获取所有菜单
+     */
+    public static function getAllMenusDataModel()
+    {
+        return self::all();
+    }
+
     /**
      * 获取一维菜单列表
      * @return mixed
      */
     public static function getMenuDataModel()
     {
-        $menu = self::all();
+        $menu = self::getAllMenusDataModel();
         $tree = tree($menu);
+
         return $tree;
     }
 
@@ -33,8 +43,9 @@ class Menu extends Model
      */
     public static function getSiderbarMenuDataModel()
     {
-        $menu = self::all();
+        $menu = self::getAllMenusDataModel();
         $tree = node_tree($menu);
+
         return $tree;
     }
 }

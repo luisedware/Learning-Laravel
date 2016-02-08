@@ -1,10 +1,9 @@
 <?php
-
 if (!function_exists('node_tree')) {
     /**多维数据无限分类
-     * @param $model
+     * @param        $model
      * @param string $node
-     * @param int $parent_id
+     * @param int    $parent_id
      * @return array
      */
     function node_tree($model, $node = "child", $parent_id = 0)
@@ -24,9 +23,9 @@ if (!function_exists('node_tree')) {
 
 if (!function_exists('tree')) {
     /**一维数据无限分类
-     * @param $model
-     * @param int $parent_id
-     * @param int $level
+     * @param        $model
+     * @param int    $parent_id
+     * @param int    $level
      * @param string $html
      * @return array
      */

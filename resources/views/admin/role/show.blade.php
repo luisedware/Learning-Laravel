@@ -34,7 +34,7 @@
                                             <table class="table table-hover">
                                                 @forelse($menu->child as $child)
                                                     <tr>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 50%;font-size: 14px;">
                                                             <label>
                                                                 <input type="checkbox" class="checkbox icheck" value="{{$child->id}}">
                                                                 {{$child->html}}{{$child->name}}

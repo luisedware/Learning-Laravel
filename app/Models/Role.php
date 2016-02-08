@@ -18,7 +18,7 @@ class Role extends EntrustRole
         return self::find($id);
     }
 
-    public static function getAllRolesModelData()
+    public static function getAllRolesDataModel()
     {
         return self::all();
     }

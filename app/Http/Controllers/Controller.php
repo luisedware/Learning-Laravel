@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 abstract class Controller extends BaseController
 {
@@ -16,8 +17,8 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        $sidebar_menus = Menu::getSiderbarMenuDataModel();
         view()->share('user_info', Auth::user()->toArray());
-        view()->share('sidebar_menus', $sidebar_menus);
+        view()->share('route_name', Route::currentRouteName());
+        view()->share('sidebar_menus', Menu::getSiderbarMenuDataModel());
     }
 }

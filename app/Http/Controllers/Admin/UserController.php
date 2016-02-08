@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::getAllRolesModelData();
+        $roles = Role::getAllRolesDataModel();
         $page_title = "新增用户";
         $page_description = "新增用户的页面";
 

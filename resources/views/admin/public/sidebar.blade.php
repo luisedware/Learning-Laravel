@@ -26,21 +26,23 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             @foreach($sidebar_menus as $menu)
-                <li class="treeview">
-                    <a href="#">
+                <li class="treeview @if($menu->url == $route_name) active @endif">
+                    <a href="@if(empty($menu->child)) {{route($menu->url)}} @endif">
                         <i class="fa fa-dashboard"></i> <span>{{$menu->name}}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     @if(!empty($menu->child))
                         <ul class="treeview-menu">
                             @foreach($menu->child as $child)
-                                <li><a href="{{URL::to($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a></li>
+                                <li class="@if($child->url == $route_name) active @endif">
+                                    <a href="{{route($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a>
+                                </li>
                             @endforeach
                         </ul>
                     @endif
                 </li>
             @endforeach
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
