@@ -1,4 +1,27 @@
 <?php
+if (!function_exists('breadcrumb_navigation')) {
+
+    /**
+     * 根据菜单编号获取面包屑导航
+     * @param $model
+     * @param $id
+     * @return array
+     */
+    function breadcrumb_navigation($model, $id)
+    {
+        $nav = [];
+
+        foreach ($model as $key => $value) {
+            if ($value['id'] == $id) {
+                $nav[] = $value;
+                $nav = array_merge($nav, breadcrumb_navigation($model, $value['parent_id']));
+            }
+        }
+
+        return $nav;
+    }
+}
+
 if (!function_exists('node_tree')) {
     /**多维数据无限分类
      * @param        $model

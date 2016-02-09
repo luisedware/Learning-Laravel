@@ -48,4 +48,17 @@ class Menu extends Model
 
         return $tree;
     }
+
+    /**
+     * 获取面包屑导航
+     * @param $id
+     * @return array
+     */
+    public static function getBreadcrumbNavigationDataModel($id)
+    {
+        $menus = self::getAllMenusDataModel()->toArray();
+        $nav = breadcrumb_navigation($menus, $id);
+
+        return $nav;
+    }
 }

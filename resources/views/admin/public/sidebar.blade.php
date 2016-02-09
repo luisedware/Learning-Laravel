@@ -26,7 +26,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             @foreach($sidebar_menus as $menu)
-                <li class="treeview @if($menu->url == $route_name) active @endif">
+                <li class="treeview @if($menu->url == $breadcrumb_navigation[0]['url']) active @endif">
                     <a href="@if(empty($menu->child)) {{route($menu->url)}} @endif">
                         <i class="fa fa-dashboard"></i> <span>{{$menu->name}}</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -34,7 +34,7 @@
                     @if(!empty($menu->child))
                         <ul class="treeview-menu">
                             @foreach($menu->child as $child)
-                                <li class="@if($child->url == $route_name) active @endif">
+                                <li class="@if($child->url == $breadcrumb_navigation[$nav_count-1]['url']) active @endif">
                                     <a href="{{route($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a>
                                 </li>
                             @endforeach

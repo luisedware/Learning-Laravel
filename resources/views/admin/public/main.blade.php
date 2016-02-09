@@ -18,11 +18,13 @@
                 <small>{{ $page_description or "Page Description" }}</small>
             </h1>
             <ol class="breadcrumb">
-                <li>
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> Level</a>
-                </li>
-                <li class="active">Here</li>
+                @foreach($breadcrumb_navigation as $nav)
+                    <li>
+                        <a href="{{route($nav['url'])}}">
+                            {{$nav['name']}}
+                        </a>
+                    </li>
+                @endforeach
             </ol>
         </section>
 
