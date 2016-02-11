@@ -26,9 +26,16 @@ abstract class Controller extends BaseController
     public function getBreadcrumbNavigation($route_name)
     {
         $menu = Menu::where('url', '=', $route_name)->orderBy('id', 'desc')->first();
-        $nav = Menu::getBreadcrumbNavigationDataModel($menu->id);
-        sort($nav);
 
-        return $nav;
+        if (!$menu) {
+            return false;
+        } else {
+            $nav = Menu::getBreadcrumbNavigationDataModel($menu->id);
+            sort($nav);
+
+            return $nav;
+        }
+
+
     }
 }
