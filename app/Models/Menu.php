@@ -14,7 +14,7 @@ class Menu extends Model
      * 支持批量赋值
      * @var array
      */
-    protected $fillable = ['url', 'name', 'parent_id','sort','display'];
+    protected $fillable = ['url', 'name', 'description', 'parent_id', 'sort', 'is_hide','is_group'];
 
 
     /**

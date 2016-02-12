@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth','entrust']], function () {
 
     Route::resource('user', 'UserController');
     Route::resource('role', 'RoleController');

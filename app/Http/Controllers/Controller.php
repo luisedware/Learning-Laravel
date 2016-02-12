@@ -16,7 +16,8 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        $nav = $this->getBreadcrumbNavigation(Route::currentRouteName());
+        $route = Route::currentRouteName();
+        $nav = $this->getBreadcrumbNavigation($route);
         view()->share('nav_count', count($nav));
         view()->share('user_info', Auth::user()->toArray());
         view()->share('sidebar_menus', Menu::getSiderbarMenuDataModel());

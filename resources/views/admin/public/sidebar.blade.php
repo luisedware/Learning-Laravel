@@ -25,21 +25,26 @@
         <ul class="sidebar-menu">
             <li class="header">系统配置</li>
             @foreach($sidebar_menus as $menu)
-                <li class="treeview @if($menu->url == $breadcrumb_navigation[0]['url']) active @endif">
-                    <a href="@if(empty($menu->child)) {{route($menu->url)}} @endif">
-                        <i class="fa fa-dashboard"></i> <span>{{$menu->name}}</span>
-                        @if(!empty($menu->child)) <i class="fa fa-angle-left pull-right"></i> @endif
-                    </a>
-                    @if(!empty($menu->child))
-                        <ul class="treeview-menu">
-                            @foreach($menu->child as $child)
-                                <li class="@if($child->url == $breadcrumb_navigation[$nav_count-1]['url']) active @endif">
-                                    <a href="{{route($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </li>
+                @if($menu->is_hide == 0)
+                    <li class="treeview @if($menu->url == $breadcrumb_navigation[0]['url']) active @endif">
+                        <a href="@if(empty($menu->child)) {{route($menu->url)}} @endif">
+                            <i class="fa fa-dashboard"></i> <span>{{$menu->name}}</span>
+                            @if(!empty($menu->child)) <i class="fa fa-angle-left pull-right"></i> @endif
+                        </a>
+                        @if(!empty($menu->child))
+                            <ul class="treeview-menu">
+                                @foreach($menu->child as $child)
+                                    @if($child->is_hide == 0)
+                                        <li class="@if($child->url == $breadcrumb_navigation[$nav_count-1]['url']) active @endif">
+                                            <a href="{{route($child->url)}}"><i class="fa fa-circle-o"></i>{{$child->name}}
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endif
             @endforeach
         </ul>
     </section>

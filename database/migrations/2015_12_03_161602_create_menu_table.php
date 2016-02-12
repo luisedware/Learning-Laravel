@@ -16,11 +16,13 @@ class CreateMenuTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->smallInteger('parent_id')->default(0);
+            $table->string('ico', 50);
             $table->string('url', 50);
             $table->string('name', 50);
             $table->string('description', 50);
             $table->tinyInteger('sort')->default(0);
-            $table->tinyInteger('display')->default(1);
+            $table->tinyInteger('is_hide')->default(0);
+            $table->tinyInteger('is_group')->default(1);
             $table->timestamps();
         });
     }

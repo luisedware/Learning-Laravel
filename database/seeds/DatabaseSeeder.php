@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\RoleUser;
+use App\Models\Permission;
+use App\Models\PermissionRole;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +18,28 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call("MenusTableSeeder");
-        $this->call("RolesTableSeeder");
         $this->call("UsersTableSeeder");
+        $this->call("RolesTableSeeder");
+        $this->call("RoleUserTableSeeder");
+        $this->call("PermissionTableSeeder");
+        $this->call("PermissionRoleTableSeeder");
     }
 }
+
+class PermissionRoleTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('permission_role')->delete();
+        for ($i = 1; $i < 3; $i++) {
+            for ($j = 1; $j < 15; $j++) {
+                PermissionRole::create(['permission_id' => $j, 'role_id' => $i]);
+            }
+        }
+
+    }
+}
+
 
 class UsersTableSeeder extends Seeder
 {
@@ -43,32 +63,61 @@ class RolesTableSeeder extends Seeder
     }
 }
 
+class RoleUserTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('role_user')->delete();
+        RoleUser::create(['user_id' => 3, 'role_id' => 1]);
+        RoleUser::create(['user_id' => 2, 'role_id' => 2]);
+        RoleUser::create(['user_id' => 1, 'role_id' => 2]);
+    }
+}
+
+class PermissionTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('permissions')->delete();
+        Permission::create(["display_name" => "首页管理", "name" => "index.index", 'description' => '展示系统的各项基础数据']);
+        Permission::create(["display_name" => "菜单列表", "name" => "menu.index", 'description' => '管理菜单的新增、编辑、删除']);
+        Permission::create(["display_name" => "新增菜单", "name" => "menu.create", 'description' => '新增菜单的页面']);
+        Permission::create(["display_name" => "编辑菜单", "name" => "menu.edit", 'description' => '编辑菜单的页面']);
+        Permission::create(["display_name" => "角色列表", "name" => "role.index", 'description' => '管理角色的新增、编辑、删除']);
+        Permission::create(["display_name" => "新增角色", "name" => "role.create", 'description' => '新增角色的页面']);
+        Permission::create(["display_name" => "编辑角色", "name" => "role.edit", 'description' => '编辑角色的页面']);
+        Permission::create(["display_name" => "角色赋权", "name" => "role.show", 'description' => '编辑角色的页面']);
+        Permission::create(["display_name" => "权限列表", "name" => "permission.index", 'description' => '管理权限的新增、编辑、删除']);
+        Permission::create(["display_name" => "新增权限", "name" => "permission.create", 'description' => '新增权限的页面']);
+        Permission::create(["display_name" => "编辑权限", "name" => "permission.edit", 'description' => '编辑权限的页面']);
+        Permission::create(["display_name" => "用户列表", "name" => "user.index", 'description' => '管理用户的新增、编辑、删除']);
+        Permission::create(["display_name" => "新增用户", "name" => "user.create", 'description' => '新增用户的页面']);
+        Permission::create(["display_name" => "编辑用户", "name" => "user.edit", 'description' => '编辑用户的页面']);
+    }
+}
+
 class MenusTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('menus')->delete();
-        Menu::create(["parent_id" => "0", "name" => "首页管理", "url" => "index.index"]);
-        Menu::create(["parent_id" => "0", "name" => "菜单管理", "url" => "menu.index"]);
-        Menu::create(["parent_id" => "2", "name" => "菜单列表", "url" => "menu.index"]);
-        Menu::create(["parent_id" => "2", "name" => "新增菜单", "url" => "menu.create"]);
-        Menu::create(["parent_id" => "2", "name" => "编辑菜单", "url" => "menu.edit", 'display' => 0]);
-        Menu::create(["parent_id" => "0", "name" => "角色管理", "url" => "role.index"]);
-        Menu::create(["parent_id" => "6", "name" => "角色列表", "url" => "role.index"]);
-        Menu::create(["parent_id" => "6", "name" => "新增角色", "url" => "role.create"]);
-        Menu::create(["parent_id" => "6", "name" => "新增角色", "url" => "role.edit", 'display' => 0]);
-        Menu::create(["parent_id" => "0", "name" => "权限管理", "url" => "permission.index"]);
-        Menu::create(["parent_id" => "10", "name" => "权限列表", "url" => "permission.index"]);
-        Menu::create(["parent_id" => "10", "name" => "新增权限", "url" => "permission.create"]);
-        Menu::create(["parent_id" => "10", "name" => "新增权限", "url" => "permission.edit", 'display' => 0]);
-        Menu::create(["parent_id" => "0", "name" => "用户管理", "url" => "user.index"]);
-        Menu::create(["parent_id" => "14", "name" => "用户列表", "url" => "user.index"]);
-        Menu::create(["parent_id" => "14", "name" => "新增用户", "url" => "user.create"]);
-        Menu::create(["parent_id" => "14", "name" => "新增用户", "url" => "user.edit", 'display' => 0]);
+        Menu::create(["parent_id" => "0", "name" => "首页管理", "url" => "index.index", 'description' => '展示系统的各项基础数据']);
+        Menu::create(["parent_id" => "0", "name" => "菜单管理", "url" => "menu.index", 'description' => '管理菜单的新增、编辑、删除']);
+        Menu::create(["parent_id" => "2", "name" => "菜单列表", "url" => "menu.index", 'description' => '管理菜单的新增、编辑、删除']);
+        Menu::create(["parent_id" => "2", "name" => "新增菜单", "url" => "menu.create", 'description' => '新增菜单的页面']);
+        Menu::create(["parent_id" => "2", "name" => "编辑菜单", "url" => "menu.edit", 'description' => '编辑菜单的页面', 'is_hide' => 1]);
+        Menu::create(["parent_id" => "0", "name" => "角色管理", "url" => "role.index", 'description' => '管理角色的新增、编辑、删除']);
+        Menu::create(["parent_id" => "6", "name" => "角色列表", "url" => "role.index", 'description' => '管理角色的新增、编辑、删除']);
+        Menu::create(["parent_id" => "6", "name" => "新增角色", "url" => "role.create", 'description' => '新增角色的页面']);
+        Menu::create(["parent_id" => "6", "name" => "编辑角色", "url" => "role.edit", 'description' => '编辑角色的页面', 'is_hide' => 1]);
+        Menu::create(["parent_id" => "6", "name" => "角色赋权", "url" => "role.show", 'description' => '编辑角色的页面', 'is_hide' => 1]);
+        Menu::create(["parent_id" => "0", "name" => "权限管理", "url" => "permission.index", 'description' => '管理权限的新增、编辑、删除']);
+        Menu::create(["parent_id" => "11", "name" => "权限列表", "url" => "permission.index", 'description' => '管理权限的新增、编辑、删除']);
+        Menu::create(["parent_id" => "11", "name" => "新增权限", "url" => "permission.create", 'description' => '新增权限的页面']);
+        Menu::create(["parent_id" => "11", "name" => "编辑权限", "url" => "permission.edit", 'description' => '编辑权限的页面', 'is_hide' => 1]);
+        Menu::create(["parent_id" => "0", "name" => "用户管理", "url" => "user.index", 'description' => '管理用户的新增、编辑、删除']);
+        Menu::create(["parent_id" => "15", "name" => "用户列表", "url" => "user.index", 'description' => '管理用户的新增、编辑、删除']);
+        Menu::create(["parent_id" => "15", "name" => "新增用户", "url" => "user.create", 'description' => '新增用户的页面']);
+        Menu::create(["parent_id" => "15", "name" => "编辑用户", "url" => "user.edit", 'description' => '编辑用户的页面', 'is_hide' => 1]);
     }
 }
