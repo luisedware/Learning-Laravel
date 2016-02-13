@@ -18,7 +18,7 @@ class EntrustMiddleware
     public function handle($request, Closure $next)
     {
         if (!Auth::user()->hasPermission(Route::currentRouteName())) {
-            return redirect()->back()->withErrors("没有管理权限");
+            return redirect()->back()->withErrors("没有操作权限");
         }
 
         return $next($request);
