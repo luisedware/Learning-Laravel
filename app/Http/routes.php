@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth','entrust']], function () {
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
     Route::resource('user', 'UserController');
     Route::resource('role', 'RoleController');
@@ -27,6 +27,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth','entrust']], funct
         Route::resource('bingo-product', 'BingoProductController');
         Route::resource('branch-product', 'BranchProductController');
     });
+
+    Route::get('upload', ['as' => 'upload.index', 'uses' => 'UploadController@index']);
+    Route::post('upload/file', 'UploadController@createFile');
+    Route::delete('upload/file', 'UploadController@deleteFile');
+    Route::post('upload/folder', 'UploadController@createFolder');
+    Route::delete('upload/folder', 'UploadController@deleteFolder');
 });
 
 Route::group(['namespace' => 'Auth'], function () {

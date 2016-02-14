@@ -145,7 +145,7 @@ class AuthController extends Controller
             'password'              => 'required|confirmed|min:6',
             'password_confirmation' => 'required'
         ], [
-            'name.required'                  => '用户名不能为空',
+            'name.required'                  => '用户名称不能为空',
             'email.required'                 => '用户邮箱不能为空',
             'password.required'              => '用户密码不能为空',
             'password.min'                   => '用户密码至少6位',

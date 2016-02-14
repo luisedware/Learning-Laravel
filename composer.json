@@ -12,7 +12,8 @@
         "spekkionu/laravel-zend-acl": "3.*",
         "dingo/api": "1.0.x@dev",
         "zizaco/entrust": "dev-laravel-5",
-        "gregwar/captcha": "1.*"
+        "gregwar/captcha": "1.*",
+        "dflydev/apache-mime-types": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

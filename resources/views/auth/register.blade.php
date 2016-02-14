@@ -13,7 +13,7 @@
         <a href="../../index2.html"><b>Admin</b>LTE</a>
     </div>
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Happy Coding</p>
 
         <form action="{{URL::to('/auth/register')}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
