@@ -58,7 +58,7 @@
                 Google登录
             </a>
         </div>
-        <a href="#">忘记密码</a><br>
+        <a href="{{URL::to('password/email')}}">忘记密码</a><br>
         <a href="{{URL::to('auth/register')}}" class="text-center">注册新账号</a>
     </div>
 </div>

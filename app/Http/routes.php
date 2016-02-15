@@ -36,14 +36,19 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 });
 
 Route::group(['namespace' => 'Auth'], function () {
+    //用户登录页面与操作
     Route::get('auth/login', 'AuthController@getLogin');
     Route::post('auth/login', 'AuthController@postLogin');
     Route::get('auth/logout', 'AuthController@getLogout');
 
+    //用户注册页面与操作
     Route::get('auth/register', 'AuthController@getRegister');
     Route::post('auth/register', 'AuthController@postRegister');
 
+    //用户重设密码页面与操作
     Route::get('password/email', 'PasswordController@getEmail');
     Route::post('password/email', 'PasswordController@postEmail');
+    Route::get('password/reset/{token}', 'PasswordController@getReset');
+    Route::post('password/reset', 'PasswordController@postReset');
 });
 
