@@ -17,23 +17,43 @@
 
         <form action="{{URL::to('/auth/login')}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="row form-group has-feedback">
-                <input type="email" class="form-control" placeholder="账号" name="email">
-                <span class="fa fa-user form-control-feedback"></span>
-                @include('admin.public.message.tips',['field'=>'email'])
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class=" form-group has-feedback">
+                        <input type="email" class="form-control" placeholder="账号" name="email">
+                        <span class="fa fa-user form-control-feedback"></span>
+                        @include('admin.public.message.tips',['field'=>'email'])
+                    </div>
+                </div>
+
             </div>
-            <div class="row form-group has-feedback">
-                <input type="password" class="form-control" placeholder="密码" name="password">
-                <span class="fa fa-lock form-control-feedback"></span>
-                @include('admin.public.message.tips',['field'=>'password'])
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class=" form-group has-feedback">
+                        <input type="password" class="form-control" placeholder="密码" name="password">
+                        <span class="fa fa-lock form-control-feedback"></span>
+                        @include('admin.public.message.tips',['field'=>'password'])
+                    </div>
+                </div>
+
             </div>
-            <div class="row form-group has-feedback">
-                <input type="text" class="form-control" placeholder="验证码" name="captcha">
-                <span class="fa fa-image form-control-feedback"></span>
-                @include('admin.public.message.tips',['field'=>'captcha'])
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class=" form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="验证码" name="captcha">
+                        <span class="fa fa-image form-control-feedback"></span>
+                        @include('admin.public.message.tips',['field'=>'captcha'])
+                    </div>
+                </div>
+
             </div>
-            <div class="row form-group has-feedback">
-                <img src="{{$captcha}}" alt="图片验证码" style="width: 100%;">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class=" form-group has-feedback">
+                        <img src="{{$captcha}}" alt="图片验证码" style="width: 100%;">
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
