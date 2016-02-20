@@ -1,0 +1,25 @@
+{
+  "name": "admin",
+  "description": "laravel content management framework",
+  "main": "",
+  "authors": [
+    "Luis <luisedware@qq.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "admin"
+  ],
+  "homepage": "https://github.com/AnnEsaon/YC_iOS",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower_dl",
+    "test",
+    "tests"
+  ]
+}
