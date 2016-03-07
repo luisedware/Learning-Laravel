@@ -1,73 +1,126 @@
 var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 
-gulp.task("copyfiles", function () {
-    gulp.src("vendor/bower_dl/jquery/dist/jquery.min.js")
+gulp.task('copy', function () {
+    // jQuery
+    gulp.src("vendor/bower/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js")
         .pipe(gulp.dest("resources/assets/js/"));
 
-    gulp.src("vendor/bower_dl/bootstrap/dist/js/bootstrap.min.js")
+    // bootstarp
+    gulp.src("vendor/bower/AdminLTE/bootstrap/css/bootstrap.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/bootstrap/js/bootstrap.min.js")
         .pipe(gulp.dest("resources/assets/js/"));
 
-    gulp.src("vendor/bower_dl/AdminLTE/dist/js/app.min.js")
+    // AdminLTE
+    gulp.src("vendor/bower/AdminLTE/dist/css/AdminLTE.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/dist/css/skins/skin-green.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/dist/js/app.min.js")
         .pipe(gulp.dest("resources/assets/js/"));
 
-    gulp.src("vendor/bower_dl/AdminLTE/plugins/slimScroll/jquery.slimscroll.js")
+    //daterangepicker
+    gulp.src('vendor/bower/AdminLTE/plugins/daterangepicker/daterangepicker.js')
         .pipe(gulp.dest("resources/assets/js/"));
-
-    gulp.src("vendor/bower_dl/AdminLTE/plugins/pace/pace.js")
+    gulp.src('vendor/bower/AdminLTE/plugins/daterangepicker/moment.min.js')
         .pipe(gulp.dest("resources/assets/js/"));
-    gulp.src('vendor/bower_dl/AdminLTE/plugins/pace/pace.css')
+    gulp.src('vendor/bower/AdminLTE/plugins/daterangepicker/daterangepicker-bs3.css')
         .pipe(gulp.dest("resources/assets/css/"));
 
-    gulp.src("vendor/bower_dl/font-awesome/less/**")
-        .pipe(gulp.dest("resources/assets/less/fontawesome"));
-    gulp.src("vendor/bower_dl/font-awesome/fonts/**")
+    //datepicker
+    gulp.src("vendor/bower/AdminLTE/plugins/datepicker/bootstrap-datepicker.js")
+        .pipe(gulp.dest("resources/assets/js"));
+    gulp.src("vendor/bower/AdminLTE/plugins/datepicker/datepicker3.css")
+        .pipe(gulp.dest("resources/assets/css"));
+
+    // Fontawesome
+    gulp.src("vendor/bower/font-awesome/css/font-awesome.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/font-awesome/fonts/*")
         .pipe(gulp.dest("public/assets/fonts/"));
 
-    gulp.src("vendor/bower_dl/bootstrap/less/**")
-        .pipe(gulp.dest("resources/assets/less/bootstrap/"));
+    // Ionicons
+    gulp.src("vendor/bower/Ionicons/css/ionicons.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/Ionicons/fonts/*")
+        .pipe(gulp.dest("public/assets/fonts/"));
 
-    gulp.src("vendor/bower_dl/AdminLTE/build/**")
-        .pipe(gulp.dest("resources/assets/less/adminlte/"));
-    gulp.src("vendor/bower_dl/AdminLTE/dist/css/skins/skin-green.min.css")
-        .pipe(gulp.dest('resources/assets/css/'));
-    gulp.src("vendor/bower_dl/AdminLTE/dist/img/**")
-        .pipe(gulp.dest("public/assets/img/"));
+    // slimScroll
+    gulp.src("vendor/bower/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
 
+    // iCheck
+    gulp.src("vendor/bower/AdminLTE/plugins/iCheck/icheck.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/iCheck/square/blue.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/iCheck/square/blue.png")
+        .pipe(gulp.dest("public/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/iCheck/square/blue@2x.png")
+        .pipe(gulp.dest("public/assets/css/"));
+
+    // select2
+    gulp.src("vendor/bower/AdminLTE/plugins/select2/select2.full.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/select2/select2.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/select2/select2.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+
+    // pace
+    gulp.src("vendor/bower/AdminLTE/plugins/pace/pace.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
+    gulp.src("vendor/bower/AdminLTE/plugins/pace/pace.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+
+    // bootstrap-treeview
+    gulp.src("vendor/bower/bootstrap-treeview/dist/bootstrap-treeview.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower/bootstrap-treeview/dist/bootstrap-treeview.min.css")
+        .pipe(gulp.dest("resources/assets/css/"));
 });
 
 elixir(function (mix) {
-    //合并js
+    // 合并javascript脚本
     mix.scripts(
         [
-            'js/jquery.min.js',
-            'js/bootstrap.min.js',
-            'js/app.min.js',
-            'js/jquery.slimscroll.js',
-            'js/pace.js'
+            'jQuery-2.1.4.min.js',
+            'bootstrap.min.js',
+            'app.min.js',
+            'pace.min.js',
+            'jquery.slimscroll.min.js',
+            'icheck.min.js',
+            'select2.full.min.js',
+            'select2.min.js',
+            'bootstrap-treeview.min.js',
+            'moment.min.js',
+            'daterangepicker.js',
+            'bootstrap-datepicker.js',
         ],
-        'public/assets/js/admin.js',
-        'resources/assets/'
+        'public/assets/js/app.js',
+        'resources/assets/js/'
     );
 
-    //编译less
-    mix.less('adminlte.less', 'resources/assets/css/adminlte.css');
-    mix.less('bootstrap.less', 'resources/assets/css/bootstrap.css');
-    mix.less('fontawesome.less','resources/assets/css/fontawesome.css');
-
-    //合并css
+    // 合并css脚本
     mix.styles(
         [
-            'adminlte.css',
-            'bootstrap.css',
-            'fontawesome.css',
+            'bootstrap.min.css',
+            'daterangepicker-bs3',
+            'datepicker3.css',
+            'pace.min.css',
+            'select2.min.css',
+            'AdminLTE.min.css',
             'skin-green.min.css',
-            'pace.css'
+            'font-awesome.min.css',
+            'ionicons.min.css',
+            'blue.css',
+            'bootstrap-treeview.min.css'
         ],
-        'public/assets/css/admin.css',
+        'public/assets/css/app.css',
         'resources/assets/css/'
     );
 
-    //启动测试单元
+    // 运行单元测试
     mix.phpUnit();
 });
