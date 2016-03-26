@@ -11,6 +11,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Flyer::class, function (Faker\Generator $faker) {
     return [
+        'user_id' => factory('App\User')->create()->id,
         'zip' => $faker->postcode,
         'city' => $faker->city,
         'state' => $faker->state,

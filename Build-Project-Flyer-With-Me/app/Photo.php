@@ -12,7 +12,13 @@ class Photo extends Model
 
     protected $guarded = [];
 
-    protected $baseDir = 'flyers/photos';
+    protected $file;
+
+    protected static function boot(){
+        static::creating(function($photo){
+            $photo->upload();
+        });
+    }
     /**
      * A flyer is composed of many photos
      * @return photos
@@ -22,23 +28,9 @@ class Photo extends Model
         return $this->belongsTo('App\Flyer');
     }
 
-    public static function named($name)
+    public function upload()
     {
-        return (new static)->saveAs($name);
-    }
-
-     protected function saveAs($name)
-     {
-        $this->name = sprintf('%s-%s',time(),$name);
-        $this->path = sprintf('%s/%s',$this->baseDir,$this->name);
-        $this->thumbnail_path = sprintf('%s/tn-%s',$this->baseDir,$this->name);
-
-        return $this;
-     }
-
-    public function move(UploadedFile $file)
-    {
-        $file->move($this->baseDir, $this->name);
+        $this->file->move($this->baseDir(), $this->fileName());
         $this->makeThumbnail();
 
         return $this;
@@ -46,8 +38,47 @@ class Photo extends Model
 
     protected function makeThumbnail()
     {
-        Image::make($this->path)
+        Image::make($this->filePath())
             ->fit(200)
-            ->save($this->thumbnail_path);
+            ->save($this->thumbnailPath());
+    }
+
+    public static function fromFile(UploadedFile $file)
+    {
+        $photo = new static;
+
+        $photo->file = $file;
+
+        return $photo->fill([
+            'name'=> $photo->fileName(),
+            'path'=> $photo->filePath(),
+            'thumbnail_path'=>$photo->thumbnailPath()
+        ]);
+    }
+
+    protected function fileName()
+    {
+        $name = sha1(
+            time().$this->file->getClientOriginalName()
+        );
+
+        $extension = $this->file->getClientOriginalExtension();
+
+        return "{$name}.{$extension}";
+    }
+
+    protected function filePath()
+    {
+        return $this->baseDir().'/'.$this->fileName();
+    }
+
+    protected function thumbnailPath()
+    {
+        return $this->baseDir().'/tn-'.$this->fileName();
+    }
+
+    protected function baseDir()
+    {
+        return 'images/photos';
     }
 }

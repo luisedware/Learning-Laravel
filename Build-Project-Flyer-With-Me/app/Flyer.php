@@ -43,4 +43,13 @@ class Flyer extends Model
         return $this->photos()->save($photo);
     }
 
+    public function owner()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
+
+    public function ownedBy(User $user)
+    {
+        return $this->user_id == $user->id;
+    }
 }
