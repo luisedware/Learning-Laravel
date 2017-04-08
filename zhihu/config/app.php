@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +176,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        // Laravel SendCloud
+        Naux\Mail\SendCloudServiceProvider::class,
+        // Laracasts Flash
+        Laracasts\Flash\FlashServiceProvider::class,
+        // Laravel UEditor
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
     ],
 
     /*
