@@ -1,5 +1,11 @@
 @extends('layouts.app')
-
+@section('style')
+    <style>
+        .panel-body img{
+            width: 100%;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
