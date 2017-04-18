@@ -1,11 +1,4 @@
 @extends('layouts.app')
-@section('style')
-    <style>
-        .panel-body img{
-            width: 100%;
-        }
-    </style>
-@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -14,7 +7,7 @@
                     <div class="panel-heading">
                         {{$question->title}}
                         @foreach($question->topics as $topic)
-                            <span class="topic">{{$topic->name}}</span>
+                            <a class="topic" href="/topic/{{$topic->id}}">{{$topic->name}}</a>
                         @endforeach
                     </div>
 
