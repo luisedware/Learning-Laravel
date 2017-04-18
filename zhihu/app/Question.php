@@ -10,6 +10,6 @@ class Question extends Model
 
     public function topics()
     {
-        return $this->belongsToMany(Topic::class)->withTimestamps();
+        return $this->belongsToMany(Topic::class,'question_topic','questionId','topicId')->withTimestamps();
     }
 }
