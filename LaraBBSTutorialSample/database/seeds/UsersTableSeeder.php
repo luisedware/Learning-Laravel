@@ -42,6 +42,8 @@ class UsersTableSeeder extends Seeder
         $user->email = 'admin@qq.com';
         $user->avatar = 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png?imageView2/1/w/200/h/200';
         $user->save();
+        // 初始化用户角色，将 1 号用户指派为『站长』
+        $user->assignRole('Founder');
 
         // 单独处理最后一位用户的数据
         $last_user = User::orderBy('id', 'desc')->first();;
@@ -49,5 +51,8 @@ class UsersTableSeeder extends Seeder
         $last_user->email = 'guest@qq.com';
         $last_user->avatar = 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/NDnzMutoxX.png?imageView2/1/w/200/h/200';
         $last_user->save();
+        // 将 2 号用户指派为『管理员』
+        $last_user->assignRole('Maintainer');
+
     }
 }
