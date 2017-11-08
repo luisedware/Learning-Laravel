@@ -1,5 +1,7 @@
 <?php
 Route::get('/', 'PagesController@root')->name('root');
+// 无权限路由
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -30,5 +32,5 @@ Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
 // Replies
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
 
-// notifications
+// Notifications
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
